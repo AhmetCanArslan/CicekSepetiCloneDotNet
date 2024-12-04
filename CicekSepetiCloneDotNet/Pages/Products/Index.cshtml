@@ -1,0 +1,38 @@
+﻿@page
+@model CicekSepetiCloneDotNet.Pages.Index.IndexModel
+@{
+}
+
+<br />
+<h2> List Of Products</h2>
+<a class="btn btn-primary btn-sm" href="/Products/Create">New Product</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model.listProduct)
+        {
+            <tr>
+                <td>@item.product_id</td>
+                <td>@item.product_name</td>
+                <td>@item.product_description</td>
+                <td>@item.product_price</td>
+                <td>@item.product_image</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/Clients/Edit?id=@item.product_id">Edit</a>
+                    <a class="btn btn-danger btn-sm" href="/Clients/Delete?id=@item.product_id">Delete</a>
+
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
