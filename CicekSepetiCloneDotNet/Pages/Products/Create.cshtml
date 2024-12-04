@@ -46,6 +46,11 @@
         <div class="col-sm-6">
             <input type="text" class="form-control" name="image" value="@Model.productInfo.product_image">
         </div>
+    </div><div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Category ID</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="categoryid" value="@Model.productInfo.product_categoryid">
+        </div>
     </div>
 
     @if (Model.succesMessage.Length > 0)

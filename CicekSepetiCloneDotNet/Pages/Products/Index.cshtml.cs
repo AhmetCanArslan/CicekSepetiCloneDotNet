@@ -29,6 +29,7 @@ namespace CicekSepetiCloneDotNet.Pages.Index
                                 productInfo.product_description = reader.GetString(2);
                                 productInfo.product_price = ""+reader.GetInt32(3);
                                 productInfo.product_image = reader.GetString(4);
+                                productInfo.product_categoryid = ""+reader.GetInt32(5);
 
                                 listProduct.Add(productInfo);
 
@@ -52,5 +53,6 @@ namespace CicekSepetiCloneDotNet.Pages.Index
         public string product_description;
         public string product_price;
         public string product_image;
+        public string product_categoryid;
     }
 }

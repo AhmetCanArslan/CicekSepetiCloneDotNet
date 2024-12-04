@@ -1,10 +1,10 @@
 ﻿@page
-@model CicekSepetiCloneDotNet.Pages.Products.EditModel
+@model CicekSepetiCloneDotNet.Pages.Categories.CreateModel
 @{
 }
 <br />
 
-<h2>Edit Product</h2>
+<h2>New Category</h2>
 
 @if (Model.errorMessage.Length > 0)
 {
@@ -24,37 +24,13 @@
 }
 
 <form method="Post">
-    <input type="hidden" name="id" value="@Model.productInfo.product_id" />
     <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Name</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" name="name" value="@Model.productInfo.product_name">
+            <input type="text" class="form-control" name="name" value="@Model.categoryInfo.category_name">
         </div>
     </div>
-    <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Description</label>
-        <div class="col-sm-6">
-            <input type="text" class="form-control" name="description" value="@Model.productInfo.product_description">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Price</label>
-        <div class="col-sm-6">
-            <input type="text" class="form-control" name="price" value="@Model.productInfo.product_price">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Image</label>
-        <div class="col-sm-6">
-            <input type="text" class="form-control" name="image" value="@Model.productInfo.product_image">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Category ID</label>
-        <div class="col-sm-6">
-            <input type="text" class="form-control" name="categoryid" value="@Model.productInfo.product_categoryid">
-        </div>
-    </div>
+
 
     @if (Model.succesMessage.Length > 0)
     {
@@ -74,7 +50,7 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         <div class="col-sm-3 d-grid">
-            <a class="btn btn-outline-primary" href="/Products" role="button">Cancel</a>
+            <a class="btn btn-outline-primary" href="/Categories/Index" role="button">Cancel</a>
         </div>
     </div>
 </form>

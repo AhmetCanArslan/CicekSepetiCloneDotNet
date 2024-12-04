@@ -43,6 +43,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                                 productInfo.product_description = reader.GetString(2);
                                 productInfo.product_price = "" + reader.GetInt32(3);
                                 productInfo.product_image = reader.GetString(4);
+                                productInfo.product_categoryid = "" + reader.GetInt32(5);
                             }
 
                         }
@@ -63,6 +64,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
             productInfo.product_description = Request.Form["description"];
             productInfo.product_price = Request.Form["price"];
             productInfo.product_image = Request.Form["image"];
+            productInfo.product_categoryid = Request.Form["categoryid"];
 
             Regex pattern = new Regex("^-?[0-9]+$", RegexOptions.Singleline);
 
@@ -71,9 +73,14 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                 intMessage = "Price should be int";
                 return;
             }
+            if (!pattern.Match(productInfo.product_categoryid).Success)
+            {
+                intMessage = "Category should be int";
+                return;
+            }
 
             if (productInfo.product_image.Length == 0 || productInfo.product_price.Length == 0 || productInfo.product_name.Length == 0 ||
-                productInfo.product_description.Length == 0)
+                productInfo.product_description.Length == 0 || productInfo.product_categoryid.Length == 0)
             {
                 errorMessage = "All the fields are required";
                 return;
@@ -86,7 +93,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                 {
                     connection.Open();
                     String sql = "UPDATE TBL_PRODUCTS " +
-    "SET product_name = @name, product_description = @description, product_price = @price, product_image = @image " +
+    "SET product_name = @name, product_description = @description, product_price = @price, product_image = @image,product_category_id=@categoryid " +
     "WHERE product_id = @id";
 
 
@@ -96,6 +103,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                         command.Parameters.AddWithValue("description", productInfo.product_description);
                         command.Parameters.AddWithValue("price", productInfo.product_price);
                         command.Parameters.AddWithValue("image", productInfo.product_image);
+                        command.Parameters.AddWithValue("categoryid", productInfo.product_categoryid);
                         command.Parameters.AddWithValue("id", productInfo.product_id);
 
                         command.ExecuteNonQuery();

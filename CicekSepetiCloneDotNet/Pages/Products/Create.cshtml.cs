@@ -21,6 +21,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
             productInfo.product_description = Request.Form["description"];
             productInfo.product_price = Request.Form["price"];
             productInfo.product_image = Request.Form["image"];
+            productInfo.product_categoryid = Request.Form["categoryid"];
 
             Regex pattern = new Regex("^-?[0-9]+$", RegexOptions.Singleline);
 
@@ -29,10 +30,15 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                 intMessage = "Price should be int";
                 return;
             }
+            if (!pattern.Match(productInfo.product_categoryid).Success)
+            {
+                intMessage = "Category ID should be int";
+                return;
+            }
 
 
             if (productInfo.product_image.Length == 0 || productInfo.product_price.Length == 0 || productInfo.product_name.Length == 0 ||
-                productInfo.product_description.Length == 0)
+                productInfo.product_description.Length == 0 || productInfo.product_categoryid.Length == 0)
             {
                 errorMessage = "All the fields are required";
                 return;
@@ -46,8 +52,8 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                 {
                     connection.Open();
                     String sql = "INSERT INTO TBL_PRODUCTS"+
-                        "(product_name, product_description, product_price, product_image) VALUES"+
-                        "(@name, @description, @price, @image);";
+                        "(product_name, product_description, product_price, product_image, product_category_id) VALUES"+
+                        "(@name, @description, @price, @image ,@category);";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -55,6 +61,8 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                         command.Parameters.AddWithValue("description", productInfo.product_description);
                         command.Parameters.AddWithValue("price", productInfo.product_price);
                         command.Parameters.AddWithValue("image", productInfo.product_image);
+                        command.Parameters.AddWithValue("category", productInfo.product_categoryid);
+
 
                         command.ExecuteNonQuery();
 
@@ -72,6 +80,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
             productInfo.product_description = "";
             productInfo.product_price = "";
             productInfo.product_image = "";
+            productInfo.product_categoryid = "";
 
             int milliseconds = 2000;
             Thread.Sleep(milliseconds);
