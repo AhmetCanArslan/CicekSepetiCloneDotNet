@@ -1,12 +1,13 @@
 ﻿@page
-@model CicekSepetiCloneDotNet.Pages.Products.CreateModel
+@model CicekSepetiCloneDotNet.Pages.Products.EditModel
 @{
 }
 <br />
 
-<h2>New Product</h2>
+<h2>Edit Product</h2>
 
-@if(Model.errorMessage.Length > 0){
+@if (Model.errorMessage.Length > 0)
+{
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>@Model.errorMessage</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -23,6 +24,7 @@
 }
 
 <form method="Post">
+    <input type="hidden" name="id" value="@Model.productInfo.product_id" />
     <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Name</label>
         <div class="col-sm-6">
@@ -58,7 +60,7 @@
                 </div>
             </div>
 
-        </div>        
+        </div>
     }
 
     <div class="row mb-3">
@@ -66,7 +68,7 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         <div class="col-sm-3 d-grid">
-            <a class="btn btn-outline-primary" href="/" role="button">Cancel</a>
+            <a class="btn btn-outline-primary" href="/Products" role="button">Cancel</a>
         </div>
     </div>
 </form>

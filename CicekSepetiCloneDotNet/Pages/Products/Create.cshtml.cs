@@ -2,6 +2,7 @@ using CicekSepetiCloneDotNet.Pages.Index;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace CicekSepetiCloneDotNet.Pages.Products
 {
@@ -10,6 +11,8 @@ namespace CicekSepetiCloneDotNet.Pages.Products
         public ProductInfo productInfo = new ProductInfo();
         public string errorMessage="";
         public string succesMessage="";
+        public string intMessage = "";
+
         public void OnGet()
         {
         }
@@ -18,6 +21,15 @@ namespace CicekSepetiCloneDotNet.Pages.Products
             productInfo.product_description = Request.Form["description"];
             productInfo.product_price = Request.Form["price"];
             productInfo.product_image = Request.Form["image"];
+
+            Regex pattern = new Regex("^-?[0-9]+$", RegexOptions.Singleline);
+
+            if (!pattern.Match(productInfo.product_price).Success)
+            {
+                intMessage = "Price should be int";
+                return;
+            }
+
 
             if (productInfo.product_image.Length == 0 || productInfo.product_price.Length == 0 || productInfo.product_name.Length == 0 ||
                 productInfo.product_description.Length == 0)
@@ -54,12 +66,16 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                 errorMessage = ex.Message;
             }
 
-            succesMessage = "Added";
+            succesMessage = "New Product Added, Redirecting to Products Page";
 
             productInfo.product_name = "";
             productInfo.product_description = "";
             productInfo.product_price = "";
             productInfo.product_image = "";
+
+            int milliseconds = 2000;
+            Thread.Sleep(milliseconds);
+
             Response.Redirect("/Products/Index");
         }
     }
