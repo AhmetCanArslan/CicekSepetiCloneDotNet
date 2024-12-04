@@ -1,0 +1,39 @@
+﻿@page
+@model CicekSepetiCloneDotNet.Pages.Users.RegistrationModel
+@{
+    Layout = "~/Pages/Shared/LoginLayout.cshtml";
+}
+<p>
+    <label>Ad<span>*</span></label>
+    <input type="text" required>
+</p>
+<p>
+    <label>Soyad<span>*</span></label>
+    <input type="text" required>
+</p>
+<p>
+    <label>Email Adresi<span>*</span></label>
+    <input type="email" required>
+</p>
+<p>
+    <label>Tel No<span>*</span></label>
+    <input type="tel" maxlength="12" required placeholder="05005005050" />
+</p>
+<p>
+    <label>Şehir<span>*</span></label>
+    <input type="text" required>
+</p>
+<p>
+    <label>Şifre<span>*</span></label>
+    <input type="password" required>
+</p>
+<p>
+    <label>Şifre Tekrar<span>*</span></label>
+    <input type="password" required>
+</p>
+<p>
+    <label>
+        <a asp-page="/Users/LoginIndex">Hesabınız var mı?</a>
+    </label>
+    <input type="submit" value="Kayıt Ol" />
+</p>

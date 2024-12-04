@@ -1,6 +1,8 @@
 ﻿@page
 @model CicekSepetiCloneDotNet.Pages.Index.IndexModel
 @{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+
 }
 
 <br />
@@ -16,7 +18,7 @@
             <th>Price</th>
             <th>Image</th>
             <th>Category</th>
-        </tr>
+        </tr> 
     </thead>
     <tbody>
         @foreach(var item in Model.listProduct)

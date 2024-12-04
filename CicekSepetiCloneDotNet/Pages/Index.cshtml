@@ -1,10 +1,22 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Çiçeksepeti";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<main class="products-section">
+        <h2>Öne Çıkan Ürünler</h2>
+        <div class="product-list">
+            @foreach(var item in Model.listProduct)
+            {
+                <div class="product-card">
+                <img src="~/assets/products/@item.product_image" alt="@item.product_name">
+                <h3>@item.product_name</h3>
+                    <p>₺@item.product_price</p>
+                    <button class="btn btn-primary">Sepete Ekle</button>
+                </div>
+            }
+        </div>
+    </main>
+
+

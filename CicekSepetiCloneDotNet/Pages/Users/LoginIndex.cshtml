@@ -1,0 +1,21 @@
+﻿@page
+@model CicekSepetiCloneDotNet.Pages.Users.LoginIndexModel
+@{
+    Layout = "~/Pages/Shared/LoginLayout.cshtml";
+}
+
+<p>
+    <label>E-mail Adresi<span>*</span></label>
+    <input type="email" required>
+</p>
+<p>
+    <label>Şifre<span>*</span></label>
+    <input type="password" required>
+</p>
+<p>
+    <label>
+        <a asp-page="/Users/PasswordReset">Şifremi Unuttum</a>
+        <a asp-page="/Users/Registration">Hesap oluştur</a>
+    </label>
+    <input type="submit" value="Giriş yap" />
+</p>
