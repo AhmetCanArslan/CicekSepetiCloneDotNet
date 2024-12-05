@@ -20,7 +20,6 @@ namespace CicekSepetiCloneDotNet.Pages.Categories
         public void OnPost()
         {
             categoryInfo.category_name = Request.Form["name"];
-            categoryInfo.category_parent_id = Request.Form["category_parent_id"];
 
 
 
@@ -45,13 +44,12 @@ namespace CicekSepetiCloneDotNet.Pages.Categories
                 {
                     connection.Open();
                     String sql = "INSERT INTO TBL_Category " +
-                        "(category_name, category_parent_id) VALUES " +
-                        "(@name, @parent_id);";
+                        "(category_name) VALUES " +
+                        "(@name);";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("name", categoryInfo.category_name);
-                        command.Parameters.AddWithValue("parent_id", categoryInfo.category_parent_id);
 
 
                         command.ExecuteNonQuery();

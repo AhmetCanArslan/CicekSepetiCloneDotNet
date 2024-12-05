@@ -13,7 +13,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
         public void OnGet()
         {
             String id = Request.Query["id"];
-            
+            Categoryid = id;
 
 
             try
@@ -37,7 +37,6 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                                 productInfo.product_price = "" + reader.GetInt32(3);
                                 productInfo.product_image = reader.GetString(4);
                                 productInfo.product_categoryid = "" + reader.GetInt32(5);
-                                Categoryid = productInfo.product_categoryid;
                                 productList.Add(productInfo);
 
                             }

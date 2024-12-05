@@ -28,7 +28,6 @@ namespace CicekSepetiCloneDotNet.Pages.Shared
                                 CategoryInfo categoryInfo = new CategoryInfo();
                                 categoryInfo.category_id= "" + reader.GetInt32(0);
                                 categoryInfo.category_name = reader.GetString(1);
-                                categoryInfo.category_parent_id = "" + reader.GetInt32(2);
 
                                 listCategory.Add(categoryInfo);
 
