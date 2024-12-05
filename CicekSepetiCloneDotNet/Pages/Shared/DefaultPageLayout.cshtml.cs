@@ -1,45 +1,37 @@
 ﻿using CicekSepetiCloneDotNet.Pages.Categories;
+using CicekSepetiCloneDotNet.Pages.Index;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 
 namespace CicekSepetiCloneDotNet.Pages.Shared
 {
+    
     public class DefaultPageLayout : PageModel
     {
-        public Dictionary<int, List<CategoryInfo>> CategoriesByParentId { get; set; } = new Dictionary<int, List<CategoryInfo>>();
+        public List<CategoryInfo> listCategory = new List<CategoryInfo>();
 
-        public void LoadCategories()
+        public void OnGet()
         {
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
-
+                String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "SELECT category_id, category_name, category_parent_id FROM TBL_Category";
-
+                    String sql = "SELECT * FROM TBL_Category";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                var category = new CategoryInfo
-                                {
-                                    category_id = ""+reader.GetInt32(0),
-                                    category_name = reader.GetString(1),
-                                    category_parent_id =""+ reader.GetInt32(2) 
-                                };
+                                CategoryInfo categoryInfo = new CategoryInfo();
+                                categoryInfo.category_id= "" + reader.GetInt32(0);
+                                categoryInfo.category_name = reader.GetString(1);
+                                categoryInfo.category_parent_id = "" + reader.GetInt32(2);
 
-                                int parentId =  Convert.ToInt32(category.category_parent_id);
+                                listCategory.Add(categoryInfo);
 
-                                if (!CategoriesByParentId.ContainsKey(parentId))
-                                {
-                                    CategoriesByParentId[parentId] = new List<CategoryInfo>();
-                                }
-
-                                CategoriesByParentId[parentId].Add(category);
                             }
                         }
                     }
@@ -47,6 +39,7 @@ namespace CicekSepetiCloneDotNet.Pages.Shared
             }
             catch (Exception ex)
             {
+
                 Console.WriteLine(ex.ToString());
             }
         }

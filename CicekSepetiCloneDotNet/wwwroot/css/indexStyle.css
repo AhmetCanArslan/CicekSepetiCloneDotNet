@@ -25,40 +25,13 @@ body {
     width: 100%;
     justify-content: center;
 }
+    .nav-category .menu .a {
+        text-decoration: none;
+    }
 
-.nav-category .menu li {
-    cursor: pointer;
-    color: black;
-    position: relative; /* Dropdown menüye göre konumlandırma */
-}
-.nav-category{
-    display: flex;
-    justify-content: space-between;
-    color: white;
-    margin-top: 10px;
-}
-.nav-category .menu .dropdown {
-    display: none; /* Başlangıçta gizli */
-    position: absolute;
-    top: 100%; /* Ana menü altında yer alacak */
-    left: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 10px;
-    min-width: 150px;
-    list-style-type: none;
-}
-.nav-category .menu .dropdown li {
-    padding: 5px 10px;
-    cursor: pointer;
-    color: black;
-}
-.nav-category .menu li:hover .dropdown {
-    display: block; /* Üzerine gelindiğinde görünür */
-}
-.nav-category .menu .dropdown li:hover {
-    background-color: #f0f0f0;
-}
+
+
+
 
 
 .navbar .user-actions {

@@ -9,6 +9,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
     {
         string errorMessage = "";
         public List<ProductInfo> productList = new List<ProductInfo>();
+        public string Categoryid = "";
         public void OnGet()
         {
             String id = Request.Query["id"];
@@ -36,7 +37,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                                 productInfo.product_price = "" + reader.GetInt32(3);
                                 productInfo.product_image = reader.GetString(4);
                                 productInfo.product_categoryid = "" + reader.GetInt32(5);
-
+                                Categoryid = productInfo.product_categoryid;
                                 productList.Add(productInfo);
 
                             }
