@@ -10,7 +10,7 @@
 <header>
     <nav class="navbar">
         <div class="logo">
-            <a href="index.html">
+            <a asp-page="/Index">
                 <img src="../assets/logo/ciceksepeti_logo.png" alt="Çiçeksepeti Logo">
 
             </a>
@@ -39,38 +39,28 @@
         <li>
             Çiçek
             <ul class="dropdown">
-                <li>Beyaz Çiçekler</li>
-                <li>Kırmızı Çiçekler</li>
-                <li>Mor Çiçekler</li>
-                <li>Mavi Çiçekler</li>
+                <li><a href="/?categoryId=1">Beyaz Çiçekler</a></li>
+                <li><a href="/?categoryId=2">Kırmızı Çiçekler</a></li>
+                <li><a href="/?categoryId=3">Mor Çiçekler</a></li>
+                <li><a href="/?categoryId=4">Mavi Çiçekler</a></li>
             </ul>
         </li>
-
         <li>
             Çikolata
             <ul class="dropdown">
-                <li>Doğum Günü Çikolatası</li>
-                <li>Bebek Çikolatası</li>
-                <li>Söz Nişan Çikolatası</li>
+                <li><a href="/?categoryId=5">Doğum Günü Çikolatası</a></li>
+                <li><a href="/?categoryId=6">Bebek Çikolatası</a></li>
+                <li><a href="/?categoryId=7">Söz Nişan Çikolatası</a></li>
             </ul>
         </li>
-
         <li>
             Doğum Günü
             <ul class="dropdown">
-                <li>Doğum Günü Çiçekleri</li>
-                <li>Doğum Günü Çikolataları</li>
+                <li><a href="/?categoryId=8">Doğum Günü Çiçekleri</a></li>
+                <li><a href="/?categoryId=9">Doğum Günü Çikolataları</a></li>
             </ul>
         </li>
-
-        <li>
-            Orkide / Saksı Çiçekleri
-            <ul class="dropdown">
-                <li>Orkide</li>
-                <li>Kaktüs</li>
-            </ul>
-        </li>
-
+    </ul>
 </nav>
 
 

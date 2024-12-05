@@ -116,6 +116,7 @@ body {
     gap: 15px;
 }
 
+
 .product-card {
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -125,31 +126,29 @@ body {
     display: flex;
     flex-direction: column; /* Ürün başlıkları, fiyat ve butonları dikey sıralar */
     justify-content: space-between; /* İçeriği yayarak hizalar */
-    height: 400px; /* Kartın yüksekliği */
+    height: 325px; /* Kartın yüksekliği */
 }
+    .product-card:hover {
+        background-color: #ccc;
+    }
 
 .product-card img {
     width: 100%;
     height: auto;
+}
+.product-link {
+    display: block; /* Linkin tüm kapsayıcıyı kaplaması için */
+    height: 100%; /* Kartın yüksekliğini tamamen kapsar */
+    width: 100%; /* Kartın genişliğini tamamen kapsar */
+    text-decoration: none; /* Alt çizgiyi kaldırır */
+    color: inherit; /* Metin rengini devralır */
 }
 
 .product-card h3, .product-card p {
     margin: 10px 0;
 }
 
-.product-card button {
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 5px;
-    
-}
-.product-card button:hover {
-    background-color: #2a622d;
-}
+
 /* Ürün Detayları */
 .product-details {
     display: flex;
