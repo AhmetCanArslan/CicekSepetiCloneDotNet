@@ -7,12 +7,7 @@
 <main class="products-section">
     <h2>Öne Çıkan Ürünler</h2>
     <div class="product-list">
-        @if (Model.listProduct.Count == 0)
-        {
-            <p>Bu kategoriye ait ürün bulunmamaktadır.</p>
-        }
-        else
-        {
+       
             @foreach (var item in Model.listProduct)
             {
                 <div class="product-card">
@@ -23,7 +18,7 @@
                     </a>
                 </div>
             }
-        }
+        
         
     </div>
 </main>
