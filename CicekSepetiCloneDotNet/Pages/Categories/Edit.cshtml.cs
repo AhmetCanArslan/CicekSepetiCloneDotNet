@@ -36,6 +36,7 @@ namespace CicekSepetiCloneDotNet.Pages.Categories
                             {
                                 categoryInfo.category_id = "" + reader.GetInt32(0);
                                 categoryInfo.category_name = reader.GetString(1);
+                                categoryInfo.category_parent_id = "" + reader.GetInt32(2);
                             }
                         }
                     }
@@ -50,9 +51,10 @@ namespace CicekSepetiCloneDotNet.Pages.Categories
 
             categoryInfo.category_id = Request.Form["id"];
             categoryInfo.category_name = Request.Form["name"];
-            
-           
-            if (categoryInfo.category_name.Length==0)
+            categoryInfo.category_parent_id = Request.Form["parent_id"];
+
+
+            if (categoryInfo.category_name.Length==0 || categoryInfo.category_parent_id.Length == 0)
             {
                 errorMessage = "All the fields are required";
                 return;
@@ -64,13 +66,15 @@ namespace CicekSepetiCloneDotNet.Pages.Categories
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    String sql = "UPDATE TBL_Category SET category_name = @name WHERE category_id = @id";
+                    string sql = "UPDATE TBL_Category SET category_name = @name, category_parent_id = @parentId WHERE category_id = @id";
 
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("name", categoryInfo.category_name);
                         command.Parameters.AddWithValue("id", categoryInfo.category_id);
+                        command.Parameters.AddWithValue("parentId", categoryInfo.category_parent_id);
+
 
                         command.ExecuteNonQuery();
                     }

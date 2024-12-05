@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
 
 namespace CicekSepetiCloneDotNet.Pages.Categories
@@ -19,7 +20,8 @@ namespace CicekSepetiCloneDotNet.Pages.Categories
         public void OnPost()
         {
             categoryInfo.category_name = Request.Form["name"];
-            
+            categoryInfo.category_parent_id = Request.Form["category_parent_id"];
+
 
 
             if (categoryInfo.category_name.Length == 0)
@@ -43,12 +45,14 @@ namespace CicekSepetiCloneDotNet.Pages.Categories
                 {
                     connection.Open();
                     String sql = "INSERT INTO TBL_Category " +
-                        "(category_name) VALUES " +
-                        "(@name);";
+                        "(category_name, category_parent_id) VALUES " +
+                        "(@name, @parent_id);";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("name", categoryInfo.category_name);
+                        command.Parameters.AddWithValue("parent_id", categoryInfo.category_parent_id);
+
 
                         command.ExecuteNonQuery();
 

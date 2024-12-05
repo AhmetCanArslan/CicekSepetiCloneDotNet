@@ -26,7 +26,8 @@ namespace CicekSepetiCloneDotNet.Pages.Categories
                                 CategoryInfo categoryInfo = new CategoryInfo();
                                 categoryInfo.category_id = "" + reader.GetInt32(0);
                                 categoryInfo.category_name = reader.GetString(1);
-                                
+                                categoryInfo.category_parent_id = ""+reader.GetInt32(2);
+
 
                                 listCategory.Add(categoryInfo);
 
@@ -46,5 +47,6 @@ namespace CicekSepetiCloneDotNet.Pages.Categories
     {
         public string category_id;
         public string category_name;
+        public string category_parent_id;
     }
 }

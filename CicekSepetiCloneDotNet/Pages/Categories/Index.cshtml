@@ -14,6 +14,7 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Parent Category ID</th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
             <tr>
                 <td>@item.category_id</td>
                 <td>@item.category_name</td>
+                <td>@item.category_parent_id</td>
                 <td>
                     <a class="btn btn-primary btn-sm" href="/Categories/Edit?id=@item.category_id"> Edit </a>
                     <a class="btn btn-danger btn-sm" href="/Categories/Delete?id=@item.category_id">Delete</a>
