@@ -18,8 +18,11 @@
 
         <!-- Search Bar -->
         <div class="search-bar">
-            <input type="text" placeholder="Ürün, kategori veya marka ara...">
-            <button>Ara</button>
+            <form method="get" action="/Products/SearchBarResult">
+                <input type="text" name="query" placeholder="Ürün, kategori veya marka ara..." required />
+                <button type="submit">Ara</button>
+            </form>
+
         </div>
 
         <div class="user-actions">
