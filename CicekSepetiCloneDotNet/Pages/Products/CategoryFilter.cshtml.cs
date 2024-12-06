@@ -1,3 +1,4 @@
+using CicekSepetiCloneDotNet.Pages.Categories;
 using CicekSepetiCloneDotNet.Pages.Index;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,10 +11,12 @@ namespace CicekSepetiCloneDotNet.Pages.Products
         string errorMessage = "";
         public List<ProductInfo> productList = new List<ProductInfo>();
         public string Categoryid = "";
+        public string CategoryName = "";
         public void OnGet()
         {
             String id = Request.Query["id"];
             Categoryid = id;
+            
 
 
             try
@@ -23,6 +26,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                 {
                     connection.Open();
                     String sql = "Select * from TBL_PRODUCTS where product_category_id = @id";
+                    String sqlCategoryName = "Select * from TBL_Category where category_id = @id";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@id", id);
@@ -39,6 +43,19 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                                 productInfo.product_categoryid = "" + reader.GetInt32(5);
                                 productList.Add(productInfo);
 
+                            }
+
+                        }
+                    }
+                    using (SqlCommand command1 = new SqlCommand(sqlCategoryName, connection))
+                    {
+                        command1.Parameters.AddWithValue("@id", id);
+                        using (SqlDataReader reader = command1.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                CategoryName =reader.GetString(1);
+                                
                             }
 
                         }

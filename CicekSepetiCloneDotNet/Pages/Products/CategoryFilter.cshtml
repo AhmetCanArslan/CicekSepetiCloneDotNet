@@ -5,11 +5,11 @@
 <main class="products-section">
     @if (Model.productList.Count == 0)
     {
-        <h2>Ürün Bulunamadı</h2>
+        <h2>@Model.CategoryName Bulunamadı</h2>
     }
     else
     {
-        <h2>@Model.Categoryid Kategorisindeki Ürünler</h2>
+        <h2>@Model.CategoryName</h2>
         <div class="product-list">
 
 

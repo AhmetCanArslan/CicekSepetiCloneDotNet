@@ -3,15 +3,15 @@
 @{
     Layout = "~/Pages/Shared/LoginLayout.cshtml";
 }
-
+<form method="Post">
 <p>
     <label>E-mail Adresi<span>*</span></label>
-    <input type="email" required>
+    <input type="email" required name="mail" value="@Model.userInfo.user_mail">
 </p>
-<p>
-    <label>Şifre<span>*</span></label>
-    <input type="password" required>
-</p>
+    <p>
+        <label>Şifre<span>*</span></label>
+        <input type="password" required name="password" value="@Model.userInfo.user_pass">
+    </p>
 <p>
     <label>
         <a asp-page="/Users/PasswordReset">Şifremi Unuttum</a>
@@ -19,3 +19,4 @@
     </label>
     <input type="submit" value="Giriş yap" />
 </p>
+</form>
