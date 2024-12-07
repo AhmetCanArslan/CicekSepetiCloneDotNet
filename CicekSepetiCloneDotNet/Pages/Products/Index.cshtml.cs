@@ -17,23 +17,13 @@ namespace CicekSepetiCloneDotNet.Pages.Index
                 {
                     connection.Open();
 
-                    // Kategoriye göre SQL sorgusu oluştur
-                    string sql;
-                    if (string.IsNullOrEmpty(categoryId) || categoryId == "all")
-                    {
-                        sql = "SELECT * FROM TBL_Products";
-                    }
-                    else
-                    {
-                        sql = "SELECT * FROM TBL_Products WHERE product_categoryid = @categoryId";
-                    }
+                   
+                    String sql = "SELECT * FROM TBL_Products";
+                    
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        if (!string.IsNullOrEmpty(categoryId) && categoryId != "all")
-                        {
-                            command.Parameters.AddWithValue("@categoryId", categoryId);
-                        }
+                       
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -46,6 +36,9 @@ namespace CicekSepetiCloneDotNet.Pages.Index
                                 productInfo.product_price = "" + reader.GetInt32(3);
                                 productInfo.product_image = reader.GetString(4);
                                 productInfo.product_categoryid = "" + reader.GetInt32(5);
+                                //productInfo.product_seller_id = "" + reader.GetInt32(6);
+                                productInfo.product_quantity = "" + reader.GetInt32(7);
+
 
                                 listProduct.Add(productInfo);
                             }
@@ -69,5 +62,8 @@ namespace CicekSepetiCloneDotNet.Pages.Index
         public string product_price;
         public string product_image;
         public string product_categoryid;
+        public string product_quantity;
+        public string product_seller_id;
+
     }
 }

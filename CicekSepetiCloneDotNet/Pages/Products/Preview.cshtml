@@ -8,8 +8,9 @@
     </div>
     <div class="product-info">
         <h1>@Model.productInfo.product_name</h1>
-            <p class="price">₺@Model.productInfo.product_price </p>
+        <p class="price">₺@Model.productInfo.product_price </p>
         <p class="description">@Model.productInfo.product_description</p>
+        <p class="stock">Stoktaki Adet: @Model.productInfo.product_quantity</p>
 
         <div class="quantity">
             <label for="quantity">Adet:</label>

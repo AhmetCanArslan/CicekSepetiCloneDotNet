@@ -57,6 +57,18 @@
             <input type="text" class="form-control" name="categoryid" value="@Model.productInfo.product_categoryid">
         </div>
     </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Seller ID</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="seller_id" value="@Model.productInfo.product_seller_id">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Quantity</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="quantity" value="@Model.productInfo.product_quantity">
+        </div>
+    </div>
 
     @if (Model.succesMessage.Length > 0)
     {

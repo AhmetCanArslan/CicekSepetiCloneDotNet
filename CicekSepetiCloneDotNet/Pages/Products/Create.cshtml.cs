@@ -52,8 +52,8 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                 {
                     connection.Open();
                     String sql = "INSERT INTO TBL_PRODUCTS"+
-                        "(product_name, product_description, product_price, product_image, product_category_id) VALUES"+
-                        "(@name, @description, @price, @image ,@category);";
+                        "(product_name, product_description, product_price, product_image, product_category_id, product_seller_id , product_quantity) VALUES"+
+                        "(@name, @description, @price, @image ,@category ,@seller_id, @quantity);";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -62,6 +62,8 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                         command.Parameters.AddWithValue("price", productInfo.product_price);
                         command.Parameters.AddWithValue("image", productInfo.product_image);
                         command.Parameters.AddWithValue("category", productInfo.product_categoryid);
+                        command.Parameters.AddWithValue("seller_id", productInfo.product_seller_id);
+                        command.Parameters.AddWithValue("quantity", productInfo.product_quantity);
 
 
                         command.ExecuteNonQuery();
@@ -81,10 +83,10 @@ namespace CicekSepetiCloneDotNet.Pages.Products
             productInfo.product_price = "";
             productInfo.product_image = "";
             productInfo.product_categoryid = "";
+            productInfo.product_seller_id = "";
+            productInfo.product_quantity = "";
 
-            int milliseconds = 2000;
-            Thread.Sleep(milliseconds);
-
+            
             Response.Redirect("/Products/Index");
         }
     }

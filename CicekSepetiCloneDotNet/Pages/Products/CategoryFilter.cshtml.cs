@@ -10,14 +10,11 @@ namespace CicekSepetiCloneDotNet.Pages.Products
     {
         string errorMessage = "";
         public List<ProductInfo> productList = new List<ProductInfo>();
-        public string Categoryid = "";
+        public string id = "";
         public string CategoryName = "";
         public void OnGet()
         {
-            String id = Request.Query["id"];
-            Categoryid = id;
-            
-
+            String id = Request.Query["id"];            
 
             try
             {
@@ -41,6 +38,8 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                                 productInfo.product_price = "" + reader.GetInt32(3);
                                 productInfo.product_image = reader.GetString(4);
                                 productInfo.product_categoryid = "" + reader.GetInt32(5);
+                                productInfo.product_seller_id = "" + reader.GetInt32(6);
+                                productInfo.product_quantity = "" + reader.GetInt32(7);
                                 productList.Add(productInfo);
 
                             }

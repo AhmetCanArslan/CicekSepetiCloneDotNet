@@ -18,6 +18,9 @@
             <th>Price</th>
             <th>Image</th>
             <th>Category</th>
+            <th>Seller_ID</th>
+            <th>Stock</th>
+
         </tr> 
     </thead>
     <tbody>
@@ -30,6 +33,9 @@
                 <td>@item.product_price</td>
                 <td>@item.product_image</td>
                 <td>@item.product_categoryid</td>
+                <td>@item.product_seller_id</td>
+                <td>@item.product_quantity</td>
+
                 <td>
                     <a class="btn btn-primary btn-sm" href="/Products/Edit?id=@item.product_id"> Edit </a>
                 </td>
