@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using CicekSepetiCloneDotNet.Pages;
+using CicekSepetiCloneDotNet.Pages.Categories;
+using CicekSepetiCloneDotNet.Pages.Users;
+
+
 
 namespace CicekSepetiCloneDotNet.Pages.Products
 {
@@ -12,10 +17,53 @@ namespace CicekSepetiCloneDotNet.Pages.Products
         public string errorMessage="";
         public string succesMessage="";
         public string intMessage = "";
+        public List<CategoryInfo> Categories { get; set; } = new List<CategoryInfo>();
+        public List<UsersInfo> Users { get; set; } = new List<UsersInfo>();
+
 
         public void OnGet()
         {
+            try
+            {
+                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string sql = "SELECT category_id, category_name FROM TBL_Category ORDER BY category_name ASC";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Categories.Add(new CategoryInfo
+                            {
+                                category_id = reader["category_id"].ToString(),
+                                category_name = reader["category_name"].ToString()
+                            });
+                        }
+                    }
+                    string sql2 = "SELECT user_id, user_name, user_surname FROM TBL_USERS where user_category='seller' ";
+                    using (SqlCommand command2 = new SqlCommand(sql2, connection))
+                    using (SqlDataReader reader2 = command2.ExecuteReader())
+                    {
+                        while (reader2.Read())
+                        {
+                            Users.Add(new UsersInfo
+                            {
+                                user_id = reader2["user_id"].ToString(),
+                                user_name = reader2["user_name"].ToString(),
+                                user_surname = reader2["user_surname"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+            }
         }
+
         public void OnPost() {
             productInfo.product_name = Request.Form["name"];
             productInfo.product_description = Request.Form["description"];

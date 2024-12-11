@@ -2,8 +2,8 @@
 @model CicekSepetiCloneDotNet.Pages.Products.CreateModel
 @{
     Layout = "~/Pages/Shared/_Layout.cshtml";
-
 }
+
 <br />
 
 <h2>New Product</h2>
@@ -50,15 +50,31 @@
         </div>
     </div>
     <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Category ID</label>
+        <label class="col-sm-3 col-form-label">Category</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" name="categoryid" value="@Model.productInfo.product_categoryid">
+            <select class="form-select" name="categoryid">
+                <option value="" disabled selected>Select a Category</option>
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@category.category_id">
+                        @category.category_name
+                    </option>
+                }
+            </select>
         </div>
     </div>
     <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Seller_ID</label>
+        <label class="col-sm-3 col-form-label">Seller</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" name="seller_id" value="@Model.productInfo.product_seller_id">
+            <select class="form-select" name="user_id">
+                <option value="" disabled selected>Select a Seller</option>
+                @foreach (var user in Model.Users)
+                {
+                    <option value="@user.user_id">
+                        @user.user_name @user.user_surname
+                    </option>
+                }
+            </select>
         </div>
     </div>
     <div class="row mb-3">
