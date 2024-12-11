@@ -36,9 +36,11 @@ namespace CicekSepetiCloneDotNet.Pages.Index
                                 productInfo.product_description = reader.GetString(2);
                                 productInfo.product_price = "" + reader.GetInt32(3);
                                 productInfo.product_image = reader.GetString(4);
-                                productInfo.product_category_name = reader.GetString(5);
-                                productInfo.product_seller_name = reader.GetString(6);
+                                productInfo.product_category_id = ""+reader.GetInt32(5);
+                                productInfo.product_seller_id =""+ reader.GetInt32(6);
                                 productInfo.product_quantity = "" + reader.GetInt32(7);
+                                productInfo.product_category_name = reader.GetString(8);
+                                productInfo.product_seller_name = reader.GetString(9);
 
 
                                 listProduct.Add(productInfo);
@@ -67,6 +69,8 @@ namespace CicekSepetiCloneDotNet.Pages.Index
         public string product_seller_id;
         public string product_seller_name;
         public string product_category_name;
+        public string product_category_id;
+     
 
     }
 }

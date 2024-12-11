@@ -52,7 +52,7 @@
         <label class="col-sm-3 col-form-label">Category</label>
         <div class="col-sm-6">
             <select class="form-select" name="categoryid">
-                <option value="@Model.productInfo.product_categoryid" >@Model.ProductCategoryName</option>
+                <option value="@Model.productInfo.product_categoryid" >@Model.productInfo.product_category_name</option>
                 @foreach (var category in Model.Categories)
                 {
                     <option value="@category.category_id">
@@ -66,7 +66,7 @@
         <label class="col-sm-3 col-form-label">Seller</label>
         <div class="col-sm-6">
             <select class="form-select" name="seller_id">
-                <option value="@Model.productInfo.product_seller_id">@Model.ProductSellerName</option>
+                <option value="@Model.productInfo.product_seller_id">@Model.productInfo.product_seller_name</option>
                 @foreach (var user in Model.Users)
                 {
                     <option value="@user.user_id">

@@ -20,10 +20,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
         public string errorMessage = "";
         public string succesMessage = "";
         public string intMessage = "";
-        public string ProductCategoryName = "";
-        public string ProductCategoryID = "";
-        public string ProductSellerID = "";
-        public string ProductSellerName = "";
+        
 
         public void OnGet()
         {
@@ -42,24 +39,26 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                     connection.Open();
 
                     // Ürün bilgilerini getir
-                    String sql = "SELECT * FROM TBL_PRODUCTS WHERE product_id = @id";
+                    string sql = "GetProductByIdWithSellerAndCategory";
+
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        command.Parameters.AddWithValue("@id", id);
+                        command.Parameters.AddWithValue("@product_id", id);
+
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
                             {
-                                productInfo.product_id = "" + reader.GetInt32(0);                            
+                                productInfo.product_id = "" + reader.GetInt32(0);
                                 productInfo.product_name = reader.GetString(1);
                                 productInfo.product_description = reader.GetString(2);
                                 productInfo.product_price = "" + reader.GetInt32(3);
                                 productInfo.product_image = reader.GetString(4);
-                                productInfo.product_categoryid = "" + reader.GetInt32(5);
-                                ProductCategoryID = productInfo.product_categoryid;
+                                productInfo.product_category_id = "" + reader.GetInt32(5);
                                 productInfo.product_seller_id = "" + reader.GetInt32(6);
-                                ProductSellerID = productInfo.product_seller_id;
                                 productInfo.product_quantity = "" + reader.GetInt32(7);
+                                productInfo.product_category_name = reader.GetString(8);
+                                productInfo.product_seller_name = reader.GetString(9);
 
                             }
                         }
@@ -79,10 +78,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                                     category_name = reader.GetString(1)
 
                                 });
-                                if(ProductCategoryID == reader.GetInt32(0).ToString())
-                                {
-                                    ProductCategoryName = reader.GetString(1);
-                                }
+                                
                             }
                         }
                     }
@@ -101,10 +97,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                                     user_name = reader2["user_name"].ToString(),
                                     user_surname = reader2["user_surname"].ToString()
                                 });
-                                if (ProductSellerID == reader2["user_id"].ToString())
-                                {
-                                    ProductSellerName = reader2["user_name"].ToString() + " " + reader2["user_surname"].ToString();
-                                }
+                               
                             }
                         }
                     }
