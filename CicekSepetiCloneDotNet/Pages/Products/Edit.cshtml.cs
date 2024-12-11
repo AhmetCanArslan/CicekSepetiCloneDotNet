@@ -25,6 +25,9 @@ namespace CicekSepetiCloneDotNet.Pages.Products
         public void OnGet()
         {
             String id = Request.Query["id"];
+
+            
+            
             if (string.IsNullOrEmpty(id))
             {
                 errorMessage = "Invalid product ID.";
@@ -33,6 +36,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
 
             try
             {
+                
                 String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -43,6 +47,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@product_id", id);
 
                         using (SqlDataReader reader = command.ExecuteReader())

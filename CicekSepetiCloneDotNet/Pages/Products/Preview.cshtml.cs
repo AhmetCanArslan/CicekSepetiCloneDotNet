@@ -19,10 +19,13 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    String sql = "Select * from TBL_PRODUCTS where product_id = @id";
+                    string sql = "GetProductByIdWithSellerAndCategory";
+
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        command.Parameters.AddWithValue("@id", id);
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        command.Parameters.AddWithValue("@product_id", id);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -32,9 +35,11 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                                 productInfo.product_description = reader.GetString(2);
                                 productInfo.product_price = "" + reader.GetInt32(3);
                                 productInfo.product_image = reader.GetString(4);
-                                productInfo.product_categoryid = "" + reader.GetInt32(5);
+                                productInfo.product_category_id = "" + reader.GetInt32(5);
                                 productInfo.product_seller_id = "" + reader.GetInt32(6);
                                 productInfo.product_quantity = "" + reader.GetInt32(7);
+                                productInfo.product_category_name = reader.GetString(8);
+                                productInfo.product_seller_name = reader.GetString(9);
                             }
 
                         }
