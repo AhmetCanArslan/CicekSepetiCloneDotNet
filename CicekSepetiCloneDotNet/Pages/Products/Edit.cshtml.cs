@@ -5,16 +5,25 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using CicekSepetiCloneDotNet.Pages.Users;
+using System.Reflection.PortableExecutable;
 
 namespace CicekSepetiCloneDotNet.Pages.Products
 {
     public class EditModel : PageModel
     {
         public ProductInfo productInfo = new ProductInfo();
-        public List<CategoryInfo> Categories { get; set; } = new List<CategoryInfo>();
+
+        public List<CategoryInfo> Categories { get; set; } = new List<CategoryInfo>(); 
+        public List<UsersInfo> Users { get; set; } = new List<UsersInfo>();
+
         public string errorMessage = "";
         public string succesMessage = "";
         public string intMessage = "";
+        public string ProductCategoryName = "";
+        public string ProductCategoryID = "";
+        public string ProductSellerID = "";
+        public string ProductSellerName = "";
 
         public void OnGet()
         {
@@ -41,14 +50,17 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                         {
                             if (reader.Read())
                             {
-                                productInfo.product_id = "" + reader.GetInt32(0);
+                                productInfo.product_id = "" + reader.GetInt32(0);                            
                                 productInfo.product_name = reader.GetString(1);
                                 productInfo.product_description = reader.GetString(2);
                                 productInfo.product_price = "" + reader.GetInt32(3);
                                 productInfo.product_image = reader.GetString(4);
                                 productInfo.product_categoryid = "" + reader.GetInt32(5);
+                                ProductCategoryID = productInfo.product_categoryid;
                                 productInfo.product_seller_id = "" + reader.GetInt32(6);
+                                ProductSellerID = productInfo.product_seller_id;
                                 productInfo.product_quantity = "" + reader.GetInt32(7);
+
                             }
                         }
                     }
@@ -65,10 +77,38 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                                 {
                                     category_id = ""+reader.GetInt32(0),
                                     category_name = reader.GetString(1)
+
                                 });
+                                if(ProductCategoryID == reader.GetInt32(0).ToString())
+                                {
+                                    ProductCategoryName = reader.GetString(1);
+                                }
                             }
                         }
                     }
+                    //Get Sellers
+
+                    string sql2 = "SELECT user_id, user_name, user_surname FROM TBL_USERS where user_category='seller' ";
+                    using (SqlCommand command2 = new SqlCommand(sql2, connection))
+                    {
+                        using (SqlDataReader reader2 = command2.ExecuteReader())
+                        {
+                            while (reader2.Read())
+                            {
+                                Users.Add(new UsersInfo
+                                {
+                                    user_id = reader2["user_id"].ToString(),
+                                    user_name = reader2["user_name"].ToString(),
+                                    user_surname = reader2["user_surname"].ToString()
+                                });
+                                if (ProductSellerID == reader2["user_id"].ToString())
+                                {
+                                    ProductSellerName = reader2["user_name"].ToString() + " " + reader2["user_surname"].ToString();
+                                }
+                            }
+                        }
+                    }
+                    
                 }
             }
             catch (Exception ex)
@@ -95,24 +135,16 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                 intMessage = "Price should be int";
                 return;
             }
-            if (!pattern.Match(productInfo.product_categoryid).Success)
-            {
-                intMessage = "Category should be int";
-                return;
-            }
+            
             if (!pattern.Match(productInfo.product_quantity).Success)
             {
                 intMessage = "Quantity should be int";
                 return;
             }
-            if (!pattern.Match(productInfo.product_seller_id).Success)
-            {
-                intMessage = "Seller ID should be int";
-                return;
-            }
+            
 
             if (productInfo.product_image.Length == 0 || productInfo.product_price.Length == 0 || productInfo.product_name.Length == 0 ||
-                productInfo.product_description.Length == 0 || productInfo.product_categoryid.Length == 0 || productInfo.product_seller_id.Length == 0 || productInfo.product_quantity.Length == 0)
+                productInfo.product_description.Length == 0 || productInfo.product_quantity.Length == 0)
             {
                 errorMessage = "All the fields are required";
                 return;

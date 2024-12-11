@@ -18,7 +18,7 @@ namespace CicekSepetiCloneDotNet.Pages.Index
                     connection.Open();
 
                    
-                    String sql = "SELECT * FROM TBL_Products";
+                    String sql = "SELECT * FROM TBL_Products ORDER BY product_id DESC";
                     
 
                     using (SqlCommand command = new SqlCommand(sql, connection))

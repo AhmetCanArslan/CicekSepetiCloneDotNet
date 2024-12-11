@@ -23,7 +23,7 @@ namespace CicekSepetiCloneDotNet.Pages
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    String sql = "SELECT * FROM TBL_Products";
+                    String sql = "SELECT * FROM TBL_Products ORDER BY product_id DESC";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())

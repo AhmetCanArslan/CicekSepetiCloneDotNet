@@ -52,9 +52,10 @@
         <label class="col-sm-3 col-form-label">Category</label>
         <div class="col-sm-6">
             <select class="form-select" name="categoryid">
+                <option value="@Model.productInfo.product_categoryid" >@Model.ProductCategoryName</option>
                 @foreach (var category in Model.Categories)
                 {
-                    <option value="@category.category_id" @(Model.productInfo.product_categoryid == category.category_id.ToString() ? "selected" : "")>
+                    <option value="@category.category_id">
                         @category.category_name
                     </option>
                 }
@@ -62,9 +63,17 @@
         </div>
     </div>
     <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Seller ID</label>
+        <label class="col-sm-3 col-form-label">Seller</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" name="seller_id" value="@Model.productInfo.product_seller_id">
+            <select class="form-select" name="seller_id">
+                <option value="@Model.productInfo.product_seller_id">@Model.ProductSellerName</option>
+                @foreach (var user in Model.Users)
+                {
+                    <option value="@user.user_id">
+                        @user.user_name @user.user_surname
+                    </option>
+                }
+            </select>
         </div>
     </div>
     <div class="row mb-3">
