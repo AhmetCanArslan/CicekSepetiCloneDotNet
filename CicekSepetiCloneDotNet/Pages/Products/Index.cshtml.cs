@@ -17,9 +17,10 @@ namespace CicekSepetiCloneDotNet.Pages.Index
                 {
                     connection.Open();
 
-                   
-                    String sql = "SELECT * FROM TBL_Products ORDER BY product_id DESC";
-                    
+
+                    string sql = "GetProductsWithSellerAndCategory";
+
+
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -35,8 +36,8 @@ namespace CicekSepetiCloneDotNet.Pages.Index
                                 productInfo.product_description = reader.GetString(2);
                                 productInfo.product_price = "" + reader.GetInt32(3);
                                 productInfo.product_image = reader.GetString(4);
-                                productInfo.product_categoryid = "" + reader.GetInt32(5);
-                                productInfo.product_seller_id = "" + reader.GetInt32(6);
+                                productInfo.product_category_name = reader.GetString(5);
+                                productInfo.product_seller_name = reader.GetString(6);
                                 productInfo.product_quantity = "" + reader.GetInt32(7);
 
 
@@ -64,6 +65,8 @@ namespace CicekSepetiCloneDotNet.Pages.Index
         public string product_categoryid;
         public string product_quantity;
         public string product_seller_id;
+        public string product_seller_name;
+        public string product_category_name;
 
     }
 }
