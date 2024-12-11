@@ -36,7 +36,7 @@ namespace CicekSepetiCloneDotNet.Pages.Index
                                 productInfo.product_price = "" + reader.GetInt32(3);
                                 productInfo.product_image = reader.GetString(4);
                                 productInfo.product_categoryid = "" + reader.GetInt32(5);
-                                //productInfo.product_seller_id = "" + reader.GetInt32(6);
+                                productInfo.product_seller_id = "" + reader.GetInt32(6);
                                 productInfo.product_quantity = "" + reader.GetInt32(7);
 
 

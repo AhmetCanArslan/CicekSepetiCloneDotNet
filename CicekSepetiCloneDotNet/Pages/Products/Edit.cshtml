@@ -2,7 +2,6 @@
 @model CicekSepetiCloneDotNet.Pages.Products.EditModel
 @{
     Layout = "~/Pages/Shared/_Layout.cshtml";
-
 }
 <br />
 
@@ -13,7 +12,6 @@
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>@Model.errorMessage</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
     </div>
 }
 @if (Model.intMessage.Length > 0)
@@ -21,7 +19,6 @@
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>@Model.intMessage</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
     </div>
 }
 
@@ -52,9 +49,16 @@
         </div>
     </div>
     <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Category ID</label>
+        <label class="col-sm-3 col-form-label">Category</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" name="categoryid" value="@Model.productInfo.product_categoryid">
+            <select class="form-select" name="categoryid">
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@category.category_id" @(Model.productInfo.product_categoryid == category.category_id.ToString() ? "selected" : "")>
+                        @category.category_name
+                    </option>
+                }
+            </select>
         </div>
     </div>
     <div class="row mb-3">
@@ -79,7 +83,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
-
         </div>
     }
 

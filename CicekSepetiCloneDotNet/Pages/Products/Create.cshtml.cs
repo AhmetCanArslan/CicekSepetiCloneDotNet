@@ -29,7 +29,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "SELECT category_id, category_name FROM TBL_Category ORDER BY category_name ASC";
+                    string sql = "SELECT * FROM TBL_Category";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -70,6 +70,8 @@ namespace CicekSepetiCloneDotNet.Pages.Products
             productInfo.product_price = Request.Form["price"];
             productInfo.product_image = Request.Form["image"];
             productInfo.product_categoryid = Request.Form["categoryid"];
+            productInfo.product_seller_id = Request.Form["user_id"];
+            productInfo.product_quantity = Request.Form["quantity"];
 
             Regex pattern = new Regex("^-?[0-9]+$", RegexOptions.Singleline);
 
@@ -78,15 +80,11 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                 intMessage = "Price should be int";
                 return;
             }
-            if (!pattern.Match(productInfo.product_categoryid).Success)
-            {
-                intMessage = "Category ID should be int";
-                return;
-            }
+            
 
 
             if (productInfo.product_image.Length == 0 || productInfo.product_price.Length == 0 || productInfo.product_name.Length == 0 ||
-                productInfo.product_description.Length == 0 || productInfo.product_categoryid.Length == 0)
+                productInfo.product_description.Length == 0 )
             {
                 errorMessage = "All the fields are required";
                 return;
@@ -130,8 +128,6 @@ namespace CicekSepetiCloneDotNet.Pages.Products
             productInfo.product_description = "";
             productInfo.product_price = "";
             productInfo.product_image = "";
-            productInfo.product_categoryid = "";
-            productInfo.product_seller_id = "";
             productInfo.product_quantity = "";
 
             
