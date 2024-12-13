@@ -1,4 +1,4 @@
-* {
+﻿* {
     box-sizing: border-box;
 }
 
@@ -89,15 +89,16 @@ body {
     border-color: #4caf50;
 }
 
-.container .form button,
-.container .form input[type=submit] {
-    width: 40%;
-    color: #ffffff;
-    font-size: 16px;
-    letter-spacing: 1px;
-    background: #4caf50;
-    cursor: pointer;
-}
+    .container .form button,
+    .container .form input[type=submit] {
+        width: 40%;
+        float: right;
+        color: #ffffff;
+        font-size: 16px;
+        letter-spacing: 1px;
+        background: #4caf50;
+        cursor: pointer;
+    }
 
 .container .form button:hover,
 .container .form input[type=submit]:hover {
