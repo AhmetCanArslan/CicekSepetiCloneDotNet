@@ -1,38 +1,39 @@
-﻿using CicekSepetiCloneDotNet.Pages.AdminPage.Users;
-using CicekSepetiCloneDotNet.Pages.Categories;
-using CicekSepetiCloneDotNet.Pages.Index;
+using CicekSepetiCloneDotNet.Pages.AdminPage.Products;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.IdentityModel.Tokens;
 using System.Data.SqlClient;
 
-namespace CicekSepetiCloneDotNet.Pages.Shared
+namespace CicekSepetiCloneDotNet.Pages
 {
-    
-    public class DefaultPageLayout : PageModel
+    public class AuthIndexModel : PageModel
     {
-        public List<CategoryInfo> listCategory = new List<CategoryInfo>();
-        public UsersInfo userInfo = new UsersInfo();
+
+        public List<ProductInfo> listProduct = new List<ProductInfo>();
+
         public void OnGet()
         {
-            
             try
             {
                 String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    String sql = "SELECT * FROM TBL_Category";
+                    String sql = "SELECT * FROM TBL_Products ORDER BY product_id DESC";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                CategoryInfo categoryInfo = new CategoryInfo();
-                                categoryInfo.category_id= "" + reader.GetInt32(0);
-                                categoryInfo.category_name = reader.GetString(1);
+                                ProductInfo productInfo = new ProductInfo();
+                                productInfo.product_id = "" + reader.GetInt32(0);
+                                productInfo.product_name = reader.GetString(1);
+                                productInfo.product_description = reader.GetString(2);
+                                productInfo.product_price = "" + reader.GetInt32(3);
+                                productInfo.product_image = reader.GetString(4);
+                                productInfo.product_categoryid = "" + reader.GetInt32(5);
 
-                                listCategory.Add(categoryInfo);
+                                listProduct.Add(productInfo);
 
                             }
                         }

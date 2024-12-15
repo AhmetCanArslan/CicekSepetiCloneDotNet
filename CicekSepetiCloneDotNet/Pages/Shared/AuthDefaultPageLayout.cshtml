@@ -1,14 +1,17 @@
 ﻿<!DOCTYPE html>
 @using CicekSepetiCloneDotNet.Pages.Shared
 @{
-    var layoutModel = new DefaultPageLayout();
-    layoutModel.OnGet(); // Kategorileri yükle
+    var id = Context.Session.GetString("user_id");
+    
+    var layoutModel = new AuthDefaultPageLayout();
+    layoutModel.OnGet(id); // Kategorileri yükle
 }
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>ÇiçekSepeti</title>
     <link rel="stylesheet" href="~/css/indexStyle.css">
 </head>
+
 <!-- Navbar -->
 <header>
     <nav class="navbar">
@@ -27,9 +30,20 @@
             </form>
 
         </div>
-
+        @if (layoutModel.userInfo.user_category == "Admin")
+        {
+            <div class="user-actions">
+                <a asp-page="/Admin/Index">Admin Panel</a>
+            </div>
+        }
+        @if (layoutModel.userInfo.user_category == "Seller")
+        {
+            <div class="user-actions">
+                <a asp-page="/Seller/Index">Seller Panel</a>
+            </div>
+        }
         <div class="user-actions">
-            <a asp-page="/Login/Index">Giriş Yap / Üye Ol</a>
+            <a asp-page="/Users/LoginIndex">Giriş Yap / Üye Ol</a>
         </div>
 
         <div class="user-actions">
@@ -42,7 +56,7 @@
 
 <nav class="nav-category">
     <ul class="menu">
-            @foreach (var item in layoutModel.listCategory)
+        @foreach (var item in layoutModel.listCategory)
             {
                <a href="/Products/CategoryFilter?id=@item.category_id">@item.category_name</a>
                 
@@ -50,11 +64,12 @@
     </ul>
 </nav>
 
-
 <body>
     @RenderBody()
 
 </body>
+
+
 
 <footer class="footer">
     <div class="footer-container">

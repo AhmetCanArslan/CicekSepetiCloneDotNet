@@ -4,18 +4,14 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+
+builder.Services.AddSession(options =>
 {
-    options.Password.RequireDigit = false; // Şifre kurallarını düzenleyebilirsiniz
-    options.Password.RequiredLength = 6;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-})
-.AddEntityFrameworkStores<ApplicationDbContext>()
-.AddDefaultTokenProviders();
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session süresi
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 builder.Services.AddAuthorization();
 // Add services to the container.
@@ -28,7 +24,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
 }
-
+app.UseSession(); 
 app.UseAuthentication();
 
 app.UseStaticFiles();

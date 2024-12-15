@@ -1,0 +1,45 @@
+﻿@page
+@model ListUsersModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<br />
+<h2> List Of Users</h2>
+<a class="btn btn-primary btn-sm" href="/Users/Create">New User</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Mail</th>
+            <th>Number</th>
+            <th>City</th>
+            <th>Pass</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.listUsers)
+        {
+            <tr>
+                <td>@item.user_id</td>
+                <td>@item.user_name</td>
+                <td>@item.user_surname</td>
+                <td>@item.user_mail</td>
+                <td>@item.user_number</td>
+                <td>@item.user_city</td>
+                <td>@item.user_pass</td>
+                <td>@item.user_category</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/Users/Edit?id=@item.user_id"> Edit </a>
+                </td>
+                <td>
+                    <a class="btn btn-danger btn-sm" href="/Users/Delete?id=@item.user_id">Delete</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
