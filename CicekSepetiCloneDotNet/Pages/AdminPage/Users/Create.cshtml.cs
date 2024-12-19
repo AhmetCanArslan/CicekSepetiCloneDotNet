@@ -44,11 +44,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Users
                 return;
             }
 
-            if (userInfo.user_category != "admin" && userInfo.user_category != "user" && userInfo.user_category != "seller")
-            {
-                errorMessage = "Category should be admin, user or seller";
-                return;
-            }
+           
 
             try
             {
@@ -83,7 +79,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Users
 
             succesMessage = "User created successfully. Redirecting to users page!";
 
-            Response.Redirect("/Users");
+            Response.Redirect("/AdminPage/Users");
         }
     }
 }

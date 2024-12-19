@@ -1,11 +1,11 @@
 ﻿@page
-@model ListUsersModel
+@model CicekSepetiCloneDotNet.Pages.AdminPage.Users.ListUsersModel
 @{
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 <br />
 <h2> List Of Users</h2>
-<a class="btn btn-primary btn-sm" href="/Users/Create">New User</a>
+<a class="btn btn-primary btn-sm" href="/AdminPage/Users/Create">New User</a>
 
 <table class="table">
     <thead>
@@ -33,10 +33,10 @@
                 <td>@item.user_pass</td>
                 <td>@item.user_category</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" href="/Users/Edit?id=@item.user_id"> Edit </a>
+                    <a class="btn btn-primary btn-sm" href="/AdminPage/Users/Edit?id=@item.user_id"> Edit </a>
                 </td>
                 <td>
-                    <a class="btn btn-danger btn-sm" href="/Users/Delete?id=@item.user_id">Delete</a>
+                    <a class="btn btn-danger btn-sm" href="/AdminPage/Users/Delete?id=@item.user_id">Delete</a>
                 </td>
 
             </tr>

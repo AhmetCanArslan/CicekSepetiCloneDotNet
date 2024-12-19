@@ -120,7 +120,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Users
             int milliseconds = 2000;
             Thread.Sleep(milliseconds);
 
-            Response.Redirect("/Users");
+            Response.Redirect("/AdminPage/Users");
         }
     }
 }

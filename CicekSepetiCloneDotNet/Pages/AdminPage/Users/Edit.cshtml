@@ -1,5 +1,5 @@
 ﻿@page
-@model EditModel
+@model CicekSepetiCloneDotNet.Pages.AdminPage.Users.EditModel
 @{
     Layout = "~/Pages/Shared/_Layout.cshtml";
 
@@ -65,11 +65,15 @@
         </div>
     </div>
     <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Category</label>
-        <div class="col-sm-6">
-            <input type="text" class="form-control" name="category" value="@Model.userInfo.user_category">
-        </div>
+    <label class="col-sm-3 col-form-label">Category</label>
+    <div class="col-sm-6">
+        <select class="form-select" name="category">
+            <option value="Admin" selected="@(Model.userInfo.user_category == "admin" ? "selected" : "")">Admin</option>
+                <option value="Seller" selected="@(Model.userInfo.user_category == "seller" ? "selected" : "")">Seller</option>
+                <option value="User" selected="@(Model.userInfo.user_category == "user" ? "selected" : "")">User</option>
+        </select>
     </div>
+</div>
 
     @if (Model.succesMessage.Length > 0)
     {
@@ -89,7 +93,7 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         <div class="col-sm-3 d-grid">
-            <a class="btn btn-outline-primary" href="/Users" role="button">Cancel</a>
+            <a class="btn btn-outline-primary" href="/AdminPage/Users" role="button">Cancel</a>
         </div>
     </div>
 </form>
