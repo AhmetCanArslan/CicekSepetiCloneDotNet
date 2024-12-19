@@ -1,10 +1,11 @@
 ﻿<!DOCTYPE html>
 @using CicekSepetiCloneDotNet.Pages.Shared
 @{
-    var id = Context.Session.GetString("user_id");
+    string? id = Context.Session.GetString("user_id");
     
     var layoutModel = new AuthDefaultPageLayout();
     layoutModel.OnGet(id); // Kategorileri yükle
+    
 }
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -33,19 +34,34 @@
         @if (layoutModel.userInfo.user_category == "Admin")
         {
             <div class="user-actions">
-                <a asp-page="/Admin/Index">Admin Panel</a>
+                <label>Hoşgeldiniz, @layoutModel.userInfo.user_name</label>
             </div>
-        }
-        @if (layoutModel.userInfo.user_category == "Seller")
+            <div class="user-actions">
+                <a asp-page="/AdminPage/Index">Admin Panel</a>
+            </div>
+
+            <div class="user-actions">
+                <a asp-page-handler="Logout" class="btn btn-danger">Oturumu Kapat</a>
+            </div>
+
+        }else if (layoutModel.userInfo.user_category == "Seller")
         {
             <div class="user-actions">
-                <a asp-page="/Seller/Index">Seller Panel</a>
+                <label>Hoşgeldiniz, @layoutModel.userInfo.user_name</label>
+            </div>
+
+            <div class="user-actions">
+                <a asp-page="/SellerPage/Index">Seller Panel</a>
+            </div>
+            <div class="user-actions">
+                <a asp-page-handler="Logout" class="btn btn-danger">Oturumu Kapat</a>
+            </div>
+        }else
+        {
+            <div class="user-actions">
+                <a asp-page="/Login/Index">Giriş Yap / Üye Ol</a>
             </div>
         }
-        <div class="user-actions">
-            <a asp-page="/Users/LoginIndex">Giriş Yap / Üye Ol</a>
-        </div>
-
         <div class="user-actions">
             <a href="cart.html">Sepetim</a>
         </div>
@@ -65,6 +81,7 @@
 </nav>
 
 <body>
+    
     @RenderBody()
 
 </body>

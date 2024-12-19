@@ -15,7 +15,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "SELECT * FROM TBL_Category";
+                    string sql = "GetCategoriesWithCreatorName";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -25,6 +25,9 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
                                 CategoryInfo categoryInfo = new CategoryInfo();
                                 categoryInfo.category_id = "" + reader.GetInt32(0);
                                 categoryInfo.category_name = reader.GetString(1);
+                                categoryInfo.creator_id = "" + reader.GetInt32(2);
+                                categoryInfo.creator_name = reader.GetString(3);
+
 
                                 listCategory.Add(categoryInfo);
 
@@ -42,7 +45,10 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
     }
     public class CategoryInfo
     {
-        public string category_id;
-        public string category_name;
+        public string? category_id;
+        public string? category_name; 
+        public string? creator_id;
+        public string? creator_name;
+
     }
 }

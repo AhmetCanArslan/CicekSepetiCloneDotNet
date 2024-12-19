@@ -1,36 +1,36 @@
-﻿using CicekSepetiCloneDotNet.Pages.AdminPage.Users;
-using CicekSepetiCloneDotNet.Pages.Categories;
-using CicekSepetiCloneDotNet.Pages.Index;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.IdentityModel.Tokens;
 using System.Data.SqlClient;
 
-namespace CicekSepetiCloneDotNet.Pages.Shared
+namespace CicekSepetiCloneDotNet.Pages.SellerPage.Categories
 {
-    
-    public class DefaultPageLayout : PageModel
+    public class IndexModel : PageModel
     {
         public List<CategoryInfo> listCategory = new List<CategoryInfo>();
-        public UsersInfo userInfo = new UsersInfo();
+        public string seller_id;
         public void OnGet()
         {
-            
+            seller_id = Request.Query["id"];
             try
             {
-                String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    String sql = "SELECT * FROM TBL_Category";
+                    string sql = "GetCategoriesByUserId";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@UserId", seller_id);
+
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
                                 CategoryInfo categoryInfo = new CategoryInfo();
-                                categoryInfo.category_id= "" + reader.GetInt32(0);
+                                categoryInfo.category_id = "" + reader.GetInt32(0);
                                 categoryInfo.category_name = reader.GetString(1);
+                                categoryInfo.seller_id = "" + reader.GetInt32(2);
 
                                 listCategory.Add(categoryInfo);
 
@@ -45,5 +45,11 @@ namespace CicekSepetiCloneDotNet.Pages.Shared
                 Console.WriteLine(ex.ToString());
             }
         }
+    }
+    public class CategoryInfo
+    {
+        public string category_id;
+        public string category_name;
+        public string seller_id;
     }
 }

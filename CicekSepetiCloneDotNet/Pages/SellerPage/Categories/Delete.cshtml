@@ -1,0 +1,44 @@
+﻿@page
+@using System.Data.SqlClient;
+@{
+
+    try
+    {
+        string seller_id = "";
+        String id = Request.Query["id"];
+        String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+
+            string sql = "Select seller_id from TBL_Category where category_id = @id";
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        seller_id = "" + reader.GetInt32(0);
+
+                    }
+                }
+            }
+            sql = "DELETE FROM TBL_Category WHERE category_id = @id";
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+            
+        }
+        Response.Redirect("/SellerPage/Categories/Index?id=" + seller_id);
+
+
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
+}

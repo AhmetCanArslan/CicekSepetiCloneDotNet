@@ -7,23 +7,24 @@ using System.Reflection.PortableExecutable;
 using CicekSepetiCloneDotNet.Pages.AdminPage.Users;
 using CicekSepetiCloneDotNet.Pages.AdminPage.Categories;
 
-namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
+namespace CicekSepetiCloneDotNet.Pages.SellerPage.Products
 {
     public class EditModel : PageModel
     {
         public ProductInfo productInfo = new ProductInfo();
 
-        public List<CategoryInfo> Categories { get; set; } = new List<CategoryInfo>();
-        public List<UsersInfo> Users { get; set; } = new List<UsersInfo>();
+        public List<CategoryInfo> Categories = new List<CategoryInfo>();
+        public UsersInfo Users  = new UsersInfo();
 
         public string errorMessage = "";
         public string succesMessage = "";
         public string intMessage = "";
+        public string? seller_id;
 
 
         public void OnGet()
         {
-            string id = Request.Query["id"];
+            string? id = Request.Query["id"];
 
 
 
@@ -60,9 +61,11 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
                                 productInfo.product_image = reader.GetString(4);
                                 productInfo.product_categoryid = "" + reader.GetInt32(5);
                                 productInfo.product_seller_id = "" + reader.GetInt32(6);
+                                seller_id = "" + reader.GetInt32(6);
                                 productInfo.product_quantity = "" + reader.GetInt32(7);
                                 productInfo.product_category_name = reader.GetString(8);
                                 productInfo.product_seller_name = reader.GetString(9);
+                                Users.user_name = reader.GetString(9);
 
                             }
                         }
@@ -86,25 +89,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
                             }
                         }
                     }
-                    //Get Sellers
-
-                    string sql2 = "SELECT user_id, user_name, user_surname FROM TBL_USERS where user_category='seller' ";
-                    using (SqlCommand command2 = new SqlCommand(sql2, connection))
-                    {
-                        using (SqlDataReader reader2 = command2.ExecuteReader())
-                        {
-                            while (reader2.Read())
-                            {
-                                Users.Add(new UsersInfo
-                                {
-                                    user_id = reader2["user_id"].ToString(),
-                                    user_name = reader2["user_name"].ToString(),
-                                    user_surname = reader2["user_surname"].ToString()
-                                });
-
-                            }
-                        }
-                    }
+                    
 
                 }
             }
@@ -123,6 +108,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
             productInfo.product_image = Request.Form["image"];
             productInfo.product_categoryid = Request.Form["categoryid"];
             productInfo.product_seller_id = Request.Form["seller_id"];
+            seller_id= Request.Form["seller_id"];
             productInfo.product_quantity = Request.Form["quantity"];
 
             Regex pattern = new Regex("^-?[0-9]+$", RegexOptions.Singleline);
@@ -160,14 +146,14 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        command.Parameters.AddWithValue("name", productInfo.product_name);
-                        command.Parameters.AddWithValue("description", productInfo.product_description);
-                        command.Parameters.AddWithValue("price", productInfo.product_price);
-                        command.Parameters.AddWithValue("image", productInfo.product_image);
-                        command.Parameters.AddWithValue("categoryid", productInfo.product_categoryid);
-                        command.Parameters.AddWithValue("id", productInfo.product_id);
-                        command.Parameters.AddWithValue("quantity", productInfo.product_quantity);
-                        command.Parameters.AddWithValue("seller_id", productInfo.product_seller_id);
+                        command.Parameters.AddWithValue("@name", productInfo.product_name);
+                        command.Parameters.AddWithValue("@description", productInfo.product_description);
+                        command.Parameters.AddWithValue("@price", productInfo.product_price);
+                        command.Parameters.AddWithValue("@image", productInfo.product_image);
+                        command.Parameters.AddWithValue("@categoryid", productInfo.product_categoryid);
+                        command.Parameters.AddWithValue("@id", productInfo.product_id);
+                        command.Parameters.AddWithValue("@quantity", productInfo.product_quantity);
+                        command.Parameters.AddWithValue("@seller_id", productInfo.product_seller_id);
 
                         command.ExecuteNonQuery();
                     }
@@ -181,7 +167,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
 
             succesMessage = "Product updated successfully. Redirecting to products page!";
 
-            Response.Redirect("/AdminPage/Products/Index");
+            Response.Redirect("/SellerPage/Products/Index?id="+ seller_id);
         }
     }
 

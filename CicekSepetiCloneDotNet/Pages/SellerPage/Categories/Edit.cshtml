@@ -1,5 +1,5 @@
 ﻿@page
-@model CicekSepetiCloneDotNet.Pages.AdminPage.Categories.EditModel
+@model CicekSepetiCloneDotNet.Pages.SellerPage.Categories.EditModel
 @{
     Layout = "~/Pages/Shared/_Layout.cshtml";
 
@@ -26,19 +26,7 @@
             <input type="text" class="form-control" name="name" value="@Model.categoryInfo.category_name">
         </div>
     </div>
-    <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Seller Name</label>
-        <div class="col-sm-6">
-            <select class="form-select" name="seller_id">
-                @foreach (var user in Model.users)
-                {
-                    <option value="@user.user_id" selected="@(user.user_id == Model.categoryInfo.creator_id)">
-                        @user.user_name @user.user_surname
-                    </option>
-                }
-            </select>
-        </div>
-    </div>
+   
 
     @if (Model.succesMessage.Length > 0)
     {
@@ -57,7 +45,7 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         <div class="col-sm-3 d-grid">
-            <a class="btn btn-outline-primary" href="/Pages/AdminPage/Categories/Index" role="button">Cancel</a>
+            <a class="btn btn-outline-primary" href="/SellerPage/Categories/Index?id=@Model.categoryInfo.seller_id" role="button">Cancel</a>
         </div>
     </div>
 </form>

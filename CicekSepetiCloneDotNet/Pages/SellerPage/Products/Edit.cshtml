@@ -1,18 +1,18 @@
 ﻿@page
-@model CreateModel
+@model CicekSepetiCloneDotNet.Pages.SellerPage.Products.EditModel
+
 @{
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
-
 <br />
 
-<h2>New Product</h2>
+<h2>Edit Product</h2>
 
-@if(Model.errorMessage.Length > 0){
+@if (Model.errorMessage.Length > 0)
+{
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>@Model.errorMessage</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
     </div>
 }
 @if (Model.intMessage.Length > 0)
@@ -20,11 +20,11 @@
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>@Model.intMessage</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
     </div>
 }
 
 <form method="Post">
+    <input type="hidden" name="id" value="@Model.productInfo.product_id" />
     <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Name</label>
         <div class="col-sm-6">
@@ -53,11 +53,10 @@
         <label class="col-sm-3 col-form-label">Category</label>
         <div class="col-sm-6">
             <select class="form-select" name="categoryid">
-                <option value="" disabled selected>Select a Category</option>
                 @foreach (var category in Model.Categories)
                 {
-                    <option value="@category.category_id">
-                        @category.category_name
+                    <option value="@category.category_id" selected="@(category.category_id == Model.productInfo.product_categoryid)">
+                    @category.category_name
                     </option>
                 }
             </select>
@@ -66,14 +65,13 @@
     <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Seller</label>
         <div class="col-sm-6">
-            <select class="form-select" name="user_id">
-                <option value="" disabled selected>Select a Seller</option>
-                @foreach (var user in Model.Users)
-                {
-                    <option value="@user.user_id">
-                        @user.user_name @user.user_surname
+            <select class="form-select" name="seller_id">
+               
+                    <option value="@Model.seller_id">
+                        @Model.Users.user_name
                     </option>
-                }
+                        
+                
             </select>
         </div>
     </div>
@@ -83,6 +81,7 @@
             <input type="text" class="form-control" name="quantity" value="@Model.productInfo.product_quantity">
         </div>
     </div>
+
     @if (Model.succesMessage.Length > 0)
     {
         <div class="row mb-3">
@@ -92,8 +91,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
-
-        </div>        
+        </div>
     }
 
     <div class="row mb-3">
@@ -101,7 +99,8 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         <div class="col-sm-3 d-grid">
-            <a class="btn btn-outline-primary" href="/AdminPage/Products" role="button">Cancel</a>
+            <a class="btn btn-outline-primary" href="/SellerPage/Products/Index?id=@Model.seller_id" role="button">Cancel</a>
         </div>
     </div>
 </form>
+

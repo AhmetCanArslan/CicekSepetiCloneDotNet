@@ -67,13 +67,7 @@
         <label class="col-sm-3 col-form-label">Seller</label>
         <div class="col-sm-6">
             <select class="form-select" name="user_id">
-                <option value="" disabled selected>Select a Seller</option>
-                @foreach (var user in Model.Users)
-                {
-                    <option value="@user.user_id">
-                        @user.user_name @user.user_surname
-                    </option>
-                }
+                <option value="@Model.Users.user_id" disabled selected>@Model.Users.user_name @Model.Users.user_surname</option>
             </select>
         </div>
     </div>
@@ -83,25 +77,14 @@
             <input type="text" class="form-control" name="quantity" value="@Model.productInfo.product_quantity">
         </div>
     </div>
-    @if (Model.succesMessage.Length > 0)
-    {
-        <div class="row mb-3">
-            <div class="col-sm-9">
-                <div class="alert alert-secondary alert-dismissible fade show" role="alert">
-                    <strong>@Model.succesMessage</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-
-        </div>        
-    }
+    
 
     <div class="row mb-3">
         <div class="offset-sm-3 col-sm-3 d-grid">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         <div class="col-sm-3 d-grid">
-            <a class="btn btn-outline-primary" href="/AdminPage/Products" role="button">Cancel</a>
+            <a class="btn btn-outline-primary" href="/SellerPage/Products/Index?id=@Model.seller_id" role="button">Cancel</a>
         </div>
     </div>
 </form>

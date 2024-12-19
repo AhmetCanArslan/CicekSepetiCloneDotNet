@@ -1,0 +1,35 @@
+﻿@page
+@model CicekSepetiCloneDotNet.Pages.SellerPage.Categories.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+
+}
+
+<br />
+<h2> List Of Categories</h2>
+<a class="btn btn-primary btn-sm" href="/SellerPage/Categories/Create?seller_id=@Model.seller_id">New Category</a>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category Owner</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.listCategory)
+        {
+            <tr>
+                <td>@item.category_id</td>
+                <td>@item.category_name</td>
+                <td>@item.seller_id</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/SellerPage/Categories/Edit?id=@item.category_id"> Edit </a>
+                    <a class="btn btn-danger btn-sm" href="/SellerPage/Categories/Delete?id=@item.category_id">Delete</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

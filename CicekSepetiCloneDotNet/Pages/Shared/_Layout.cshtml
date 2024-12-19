@@ -1,9 +1,14 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+    @{
+    string? id = Context.Session.GetString("user_id");
+    var layoutModel = new _Layout();
+    layoutModel.OnGet(id);
+    }
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AdminPaneli</title>
+    <title>@ViewData["Title"] @layoutModel.userInfo.user_category Paneli</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CicekSepetiCloneDotNet.styles.css" asp-append-version="true" />
@@ -17,21 +22,44 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/AdminPage/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Products/Index">Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Categories/Index">Categories</a>
-                        </li><li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Users/Index">Users</a>
-                        </li>
-                    </ul>
-                </div>
+                @if(layoutModel.userInfo.user_category == "Admin")
+                {
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/AdminPage/Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/AdminPage/Products/Index">Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/AdminPage/Categories/Index">Categories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/AdminPage/Users/Index">Users</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/SellerPage">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/SellerPage/Products/Index?id=@layoutModel.userInfo.user_id">Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/SellerPage/Categories/Index?id=@layoutModel.userInfo.user_id">Categories</a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    
+                }
+
             </div>
         </nav>
     </header>

@@ -1,50 +1,30 @@
-﻿using CicekSepetiCloneDotNet.Pages.AdminPage.Users;
+using Azure.Core;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
+namespace CicekSepetiCloneDotNet.Pages.SellerPage.Categories
 {
     public class CreateModel : PageModel
     {
         public CategoryInfo categoryInfo = new CategoryInfo();
-        public List<UsersInfo> users = new List<UsersInfo>();
         public string errorMessage = "";
         public string succesMessage = "";
         public string intMessage = "";
+        public string seller_id;
         public void OnGet()
         {
-            // Satıcıları getir
-            string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open(); // Bağlantıyı açmayı unutmayın!
-                string sql2 = "SELECT user_id, user_name, user_surname FROM TBL_USERS WHERE user_category = 'seller'";
-                using (SqlCommand command2 = new SqlCommand(sql2, connection))
-                {
-                    using (SqlDataReader reader2 = command2.ExecuteReader())
-                    {
-                        while (reader2.Read())
-                        {
-                            users.Add(new UsersInfo
-                            {
-                                user_id = reader2["user_id"].ToString(),
-                                user_name = reader2["user_name"].ToString(),
-                                user_surname = reader2["user_surname"].ToString()
-                            });
-                        }
-                    }
-                }
-            }
+            categoryInfo.seller_id = Request.Query["seller_id"];
+
         }
         public void OnPost()
         {
+            categoryInfo.seller_id = Request.Query["seller_id"];
             categoryInfo.category_name = Request.Form["name"];
-            categoryInfo.creator_id = Request.Form["seller_id"];
+
 
 
             if (categoryInfo.category_name.Length == 0)
@@ -69,12 +49,12 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
                     connection.Open();
                     string sql = "INSERT INTO TBL_Category " +
                         "(category_name, seller_id) VALUES " +
-                        "(@name, @seller_id);";
+                        "(@name ,@seller_id);";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        command.Parameters.AddWithValue("@name", categoryInfo.category_name);
-                        command.Parameters.AddWithValue("@seller_id", categoryInfo.creator_id);
+                        command.Parameters.AddWithValue("name", categoryInfo.category_name);
+                        command.Parameters.AddWithValue("seller_id", categoryInfo.seller_id);
 
 
                         command.ExecuteNonQuery();
@@ -87,9 +67,9 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
                 errorMessage = ex.Message;
             }
 
-           
+            
 
-            Response.Redirect("/AdminPage/Categories/Index");
+            Response.Redirect("/SellerPage/Categories/Index?id="+ categoryInfo.seller_id);
         }
     }
 }

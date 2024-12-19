@@ -7,7 +7,7 @@ using CicekSepetiCloneDotNet.Pages.AdminPage.Categories;
 
 
 
-namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
+namespace CicekSepetiCloneDotNet.Pages.SellerPage.Products
 {
     public class CreateModel : PageModel
     {
@@ -16,11 +16,12 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
         public string succesMessage = "";
         public string intMessage = "";
         public List<CategoryInfo> Categories { get; set; } = new List<CategoryInfo>();
-        public List<UsersInfo> Users { get; set; } = new List<UsersInfo>();
-
+        public UsersInfo Users { get; set; } = new UsersInfo();
+        public string? seller_id;
 
         public void OnGet()
         {
+            seller_id = Request.Query["id"];
             try
             {
                 string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
@@ -40,21 +41,21 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
                             });
                         }
                     }
-                    string sql2 = "SELECT user_id, user_name, user_surname FROM TBL_USERS where user_category='seller' ";
+                    string sql2 = "SELECT user_id, user_name, user_surname FROM TBL_USERS where user_id=@seller_id ";
                     using (SqlCommand command2 = new SqlCommand(sql2, connection))
-                    using (SqlDataReader reader2 = command2.ExecuteReader())
                     {
-                        while (reader2.Read())
+                        command2.Parameters.AddWithValue("seller_id", seller_id);
+                        using (SqlDataReader reader2 = command2.ExecuteReader())
                         {
-                            Users.Add(new UsersInfo
+                            if (reader2.Read())
                             {
-                                user_id = reader2["user_id"].ToString(),
-                                user_name = reader2["user_name"].ToString(),
-                                user_surname = reader2["user_surname"].ToString()
-                            });
+                                Users.user_id = reader2["user_id"].ToString();
+                                Users.user_name = reader2["user_name"].ToString();
+                                Users.user_surname = reader2["user_surname"].ToString();
+                            }
                         }
                     }
-                }
+                     }
             }
             catch (Exception ex)
             {
@@ -64,12 +65,13 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
 
         public void OnPost()
         {
+            seller_id = Request.Query["id"];
             productInfo.product_name = Request.Form["name"];
             productInfo.product_description = Request.Form["description"];
             productInfo.product_price = Request.Form["price"];
             productInfo.product_image = Request.Form["image"];
             productInfo.product_categoryid = Request.Form["categoryid"];
-            productInfo.product_seller_id = Request.Form["user_id"];
+            productInfo.product_seller_id = Request.Query["id"];
             productInfo.product_quantity = Request.Form["quantity"];
 
             Regex pattern = new Regex("^-?[0-9]+$", RegexOptions.Singleline);
@@ -121,16 +123,10 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
                 errorMessage = ex.Message;
             }
 
-            succesMessage = "New Product Added, Redirecting to Products Page";
-
-            productInfo.product_name = "";
-            productInfo.product_description = "";
-            productInfo.product_price = "";
-            productInfo.product_image = "";
-            productInfo.product_quantity = "";
+            
 
 
-            Response.Redirect("/AdminPage/Products/Index");
+            Response.Redirect("/SellerPage/Products/Index?id=" + seller_id);
         }
     }
 }

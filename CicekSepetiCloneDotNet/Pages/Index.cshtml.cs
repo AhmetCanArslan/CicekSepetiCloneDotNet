@@ -1,18 +1,13 @@
-using CicekSepetiCloneDotNet.Pages.Index;
+using CicekSepetiCloneDotNet.Pages.AdminPage.Products;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 
 namespace CicekSepetiCloneDotNet.Pages
 {
-    public class IndexModel : PageModel
+    public class AuthIndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
         public List<ProductInfo> listProduct = new List<ProductInfo>();
 
         public void OnGet()

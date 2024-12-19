@@ -7,7 +7,7 @@
 
 <br />
 <h2> List Of Products</h2>
-<a class="btn btn-primary btn-sm" href="/Products/Create">New Product</a>
+<a class="btn btn-primary btn-sm" href="/AdminPage/Products/Create">New Product</a>
 
 <table class="table">
     <thead>
@@ -37,10 +37,10 @@
                 <td>@item.product_quantity</td>
 
                 <td>
-                    <a class="btn btn-primary btn-sm" href="/Products/Edit?id=@item.product_id"> Edit </a>
+                    <a class="btn btn-primary btn-sm" href="/AdminPage/Products/Edit?id=@item.product_id"> Edit </a>
                 </td>
                 <td>
-                    <a class="btn btn-danger btn-sm" href="/Products/Delete?id=@item.product_id">Delete</a>
+                    <a class="btn btn-danger btn-sm" href="/AdminPage/Products/Delete?id=@item.product_id">Delete</a>
                 </td>
 
             </tr>

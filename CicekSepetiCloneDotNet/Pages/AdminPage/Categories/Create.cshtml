@@ -30,7 +30,20 @@
             <input type="text" class="form-control" name="name" value="@Model.categoryInfo.category_name">
         </div>
     </div>
-   
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Seller Name</label>
+        <div class="col-sm-6">
+            <select class="form-select" name="seller_id">
+                <option value="" disabled selected>Select a Category Owner</option>
+                @foreach (var user in Model.users)
+                {
+                    <option value="@user.user_id">
+                        @user.user_name @user.user_surname
+                   </option>
+                }
+            </select>
+        </div>
+    </div>
 
     @if (Model.succesMessage.Length > 0)
     {

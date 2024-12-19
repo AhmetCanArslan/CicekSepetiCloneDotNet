@@ -1,12 +1,10 @@
 ﻿@page
-@model CicekSepetiCloneDotNet.Pages.AdminPage.Categories.EditModel
+@model CreateModel
 @{
     Layout = "~/Pages/Shared/_Layout.cshtml";
-
 }
-<br />
 
-<h2>Edit Category</h2>
+<h2>New Category</h2>
 
 @if (Model.errorMessage.Length > 0)
 {
@@ -16,29 +14,23 @@
 
     </div>
 }
+@if (Model.intMessage.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.intMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
+    </div>
+}
 
 <form method="Post">
-    <input type="hidden" name="id" value="@Model.categoryInfo.category_id" />
     <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Name</label>
         <div class="col-sm-6">
             <input type="text" class="form-control" name="name" value="@Model.categoryInfo.category_name">
         </div>
     </div>
-    <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Seller Name</label>
-        <div class="col-sm-6">
-            <select class="form-select" name="seller_id">
-                @foreach (var user in Model.users)
-                {
-                    <option value="@user.user_id" selected="@(user.user_id == Model.categoryInfo.creator_id)">
-                        @user.user_name @user.user_surname
-                    </option>
-                }
-            </select>
-        </div>
-    </div>
+   
 
     @if (Model.succesMessage.Length > 0)
     {
@@ -52,12 +44,13 @@
 
         </div>
     }
+
     <div class="row mb-3">
         <div class="offset-sm-3 col-sm-3 d-grid">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         <div class="col-sm-3 d-grid">
-            <a class="btn btn-outline-primary" href="/Pages/AdminPage/Categories/Index" role="button">Cancel</a>
+            <a class="btn btn-outline-primary" href="/SellerPage/Categories/Index?id=@Model.categoryInfo.seller_id" role="button">Cancel</a>
         </div>
     </div>
 </form>

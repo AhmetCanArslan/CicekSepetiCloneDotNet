@@ -43,7 +43,7 @@ namespace CicekSepetiCloneDotNet.Pages.Login
                                 HttpContext.Session.SetString("user_id", id);
 
                                 // Kullanıcıyı başka bir sayfaya yönlendir
-                                Response.Redirect("/AuthIndex");
+                                Response.Redirect("/Index");
 
                             }
                             else
