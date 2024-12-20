@@ -14,6 +14,7 @@ namespace CicekSepetiCloneDotNet.Pages.Shared
         public List<CategoryInfo> listCategory = new List<CategoryInfo>();
         public UsersInfo userInfo = new UsersInfo();
 
+        
 
         public void OnGet(string id)
         {

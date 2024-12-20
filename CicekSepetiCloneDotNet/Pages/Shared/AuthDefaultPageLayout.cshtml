@@ -1,12 +1,12 @@
-﻿<!DOCTYPE html>
-@using CicekSepetiCloneDotNet.Pages.Shared
+﻿@using CicekSepetiCloneDotNet.Pages.Shared
 @{
     string? id = Context.Session.GetString("user_id");
     
     var layoutModel = new AuthDefaultPageLayout();
     layoutModel.OnGet(id); // Kategorileri yükle
-    
+  
 }
+<!DOCTYPE html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>ÇiçekSepeti</title>
@@ -41,7 +41,10 @@
             </div>
 
             <div class="user-actions">
-                <a asp-page-handler="Logout" class="btn btn-danger">Oturumu Kapat</a>
+                <a href="/Login/Index?status=logout" class="btn btn-danger">Oturumu Kapat</a>
+            </div>
+            <div class="user-actions">
+                <a href="cart.html">Sepetim</a>
             </div>
 
         }else if (layoutModel.userInfo.user_category == "Seller")
@@ -54,17 +57,32 @@
                 <a asp-page="/SellerPage/Index">Seller Panel</a>
             </div>
             <div class="user-actions">
-                <a asp-page-handler="Logout" class="btn btn-danger">Oturumu Kapat</a>
+                <a href="/Login/Index?status=0" class="btn btn-danger">Oturumu Kapat</a>
             </div>
-        }else
+            <div class="user-actions">
+                <a href="cart.html">Sepetim</a>
+            </div>
+        }
+        else if (layoutModel.userInfo.user_category == "User")
+        {
+            <div class="user-actions">
+                <label>Hoşgeldiniz, @layoutModel.userInfo.user_name</label>
+            </div>
+
+            <div class="user-actions">
+                <a href="/Login/Index?status=0" class="btn btn-danger">Oturumu Kapat</a>
+            </div>
+            <div class="user-actions">
+                <a href="cart.html">Sepetim</a>
+            </div>
+        }
+        else
         {
             <div class="user-actions">
                 <a asp-page="/Login/Index">Giriş Yap / Üye Ol</a>
             </div>
         }
-        <div class="user-actions">
-            <a href="cart.html">Sepetim</a>
-        </div>
+        
     </nav>
 </header>
 

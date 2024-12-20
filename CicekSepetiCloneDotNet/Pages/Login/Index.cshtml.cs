@@ -1,4 +1,5 @@
-﻿using CicekSepetiCloneDotNet.Pages.AdminPage.Users;
+﻿using Azure.Core;
+using CicekSepetiCloneDotNet.Pages.AdminPage.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
@@ -9,10 +10,18 @@ namespace CicekSepetiCloneDotNet.Pages.Login
     {
         public UsersInfo userInfo = new UsersInfo();
         public string errorMessage = "";
+        string logOutStatus = "";
 
         public void OnGet()
         {
-            // Sayfa ilk açıldığında yapılması gereken bir işlem yok.
+            logOutStatus = Request.Query["status"];
+            if (logOutStatus == "logout")
+            {
+                HttpContext.Session.Clear();
+                System.Threading.Thread.Sleep(500);
+                Response.Redirect("/Index");
+
+            }
         }
 
         public void OnPost()
