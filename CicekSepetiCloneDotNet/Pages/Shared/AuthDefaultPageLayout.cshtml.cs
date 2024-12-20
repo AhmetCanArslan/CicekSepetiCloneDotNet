@@ -1,6 +1,5 @@
 ﻿using CicekSepetiCloneDotNet.Pages.AdminPage.Users;
 using CicekSepetiCloneDotNet.Pages.Categories;
-using CicekSepetiCloneDotNet.Pages.Index;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.IdentityModel.Tokens;

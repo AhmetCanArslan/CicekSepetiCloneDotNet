@@ -1,4 +1,3 @@
-using CicekSepetiCloneDotNet.Pages.Index;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

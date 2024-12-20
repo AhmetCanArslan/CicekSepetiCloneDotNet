@@ -44,7 +44,7 @@
                 <a href="/Login/Index?status=logout" class="btn btn-danger">Oturumu Kapat</a>
             </div>
             <div class="user-actions">
-                <a href="cart.html">Sepetim</a>
+                <a href="/Cart/Index?user_id=@id">Sepetim</a>
             </div>
 
         }else if (layoutModel.userInfo.user_category == "Seller")
@@ -60,7 +60,7 @@
                 <a href="/Login/Index?status=0" class="btn btn-danger">Oturumu Kapat</a>
             </div>
             <div class="user-actions">
-                <a href="cart.html">Sepetim</a>
+                <a href="/Cart/Index?user_id=@id">Sepetim</a>
             </div>
         }
         else if (layoutModel.userInfo.user_category == "User")
@@ -73,7 +73,7 @@
                 <a href="/Login/Index?status=0" class="btn btn-danger">Oturumu Kapat</a>
             </div>
             <div class="user-actions">
-                <a href="cart.html">Sepetim</a>
+                <a href="/Cart/Index?user_id=@id">Sepetim</a>
             </div>
         }
         else

@@ -1,20 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
+
 
 namespace CicekSepetiCloneDotNet.Pages.Cart
 {
     public class IndexModel : PageModel
     {
         // Sepet verilerinin tutulduğu liste (örnek bir ViewModel)
-        public List<CartItemViewModel> CartItems { get; set; } = new List<CartItemViewModel>();
+        public List<CartItemViewModel> cartItems = new List<CartItemViewModel>();
+        string user_id = "";
 
         // OnGet: Sepet verilerini getirir
         public void OnGet()
         {
+            user_id = Request.Query["user_id"];
+
             // Örnek: Sepet verilerini veritabanından çekiyoruz (simülasyon)
-            CartItems = GetCartItemsFromDatabase();
+            cartItems = GetCartItemsFromDatabase(user_id);
         }
 
         // Ürün miktarını güncellemek için POST işlemi
@@ -54,14 +59,50 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
         }
 
         // Aşağıdaki metotlar örnek olarak veritabanı işlemlerini simüle eder:
-        private List<CartItemViewModel> GetCartItemsFromDatabase()
+        private List<CartItemViewModel> GetCartItemsFromDatabase(string user_id)
         {
-            // Örnek veriler
-            return new List<CartItemViewModel>
+            try
             {
-                new CartItemViewModel { CartId = 1, ProductName = "Ürün 1", ProductImage = "/images/urun1.jpg", Price = 100, Quantity = 2 },
-                new CartItemViewModel { CartId = 2, ProductName = "Ürün 2", ProductImage = "/images/urun2.jpg", Price = 200, Quantity = 1 }
-            };
+                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+
+                    string sql = "GetCartDetailsByUser";
+
+
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@UserId", user_id);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                CartItemViewModel cartProducts = new CartItemViewModel();
+                                cartProducts.SellerName = reader.GetString(0);
+                                cartProducts.ProductName = reader.GetString(1);
+                                cartProducts.ProductQuantity = reader.GetInt32(2);
+                                cartProducts.ProductImage = reader.GetString(3);
+                                cartProducts.ProductPrice = reader.GetInt32(4);
+                                cartProducts.ProductId = ""+reader.GetInt32(5);
+
+
+                                cartItems.Add(cartProducts);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return cartItems;
+
         }
 
         private void UpdateCartQuantity(int cartId, int quantity)
@@ -86,10 +127,11 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
     // Örnek ViewModel
     public class CartItemViewModel
     {
-        public int CartId { get; set; }
-        public string ProductName { get; set; }
-        public string ProductImage { get; set; }
-        public decimal Price { get; set; }
-        public int Quantity { get; set; }
+        public string SellerName;
+        public string ProductName;
+        public int ProductQuantity;
+        public string ProductImage;
+        public int ProductPrice;
+        public string ProductId;
     }
 }

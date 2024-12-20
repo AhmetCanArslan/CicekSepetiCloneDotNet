@@ -18,7 +18,7 @@ namespace CicekSepetiCloneDotNet.Pages.Login
             if (logOutStatus == "logout")
             {
                 HttpContext.Session.Clear();
-                System.Threading.Thread.Sleep(500);
+                System.Threading.Thread.Sleep(1000);
                 Response.Redirect("/Index");
 
             }
