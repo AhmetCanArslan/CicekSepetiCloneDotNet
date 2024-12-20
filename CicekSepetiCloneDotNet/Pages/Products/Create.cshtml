@@ -1,0 +1,107 @@
+﻿@page
+@model CicekSepetiCloneDotNet.Pages.Products.CreateModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<h2>New Product</h2>
+
+@if(Model.errorMessage.Length > 0){
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+    </div>
+}
+@if (Model.intMessage.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.intMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+    </div>
+}
+
+<form method="Post">
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="name" value="@Model.productInfo.product_name">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Description</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="description" value="@Model.productInfo.product_description">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Price</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="price" value="@Model.productInfo.product_price">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Image</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="image" value="@Model.productInfo.product_image">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Category</label>
+        <div class="col-sm-6">
+            <select class="form-select" name="categoryid">
+                <option value="" disabled selected>Select a Category</option>
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@category.category_id">
+                        @category.category_name
+                    </option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Seller</label>
+        <div class="col-sm-6">
+            <select class="form-select" name="user_id">
+                <option value="" disabled selected>Select a Seller</option>
+                @foreach (var user in Model.Users)
+                {
+                    <option value="@user.user_id">
+                        @user.user_name @user.user_surname
+                    </option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Quantity</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="quantity" value="@Model.productInfo.product_quantity">
+        </div>
+    </div>
+    @if (Model.succesMessage.Length > 0)
+    {
+        <div class="row mb-3">
+            <div class="col-sm-9">
+                <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+                    <strong>@Model.succesMessage</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+
+        </div>        
+    }
+
+    <div class="row mb-3">
+        <div class="offset-sm-3 col-sm-3 d-grid">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="col-sm-3 d-grid">
+            <a class="btn btn-outline-primary" href="/" role="button">Cancel</a>
+        </div>
+    </div>
+</form>

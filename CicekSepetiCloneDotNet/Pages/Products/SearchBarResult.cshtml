@@ -1,0 +1,32 @@
+﻿@page
+@model CicekSepetiCloneDotNet.Pages.SearchModel
+@{
+    ViewData["Title"] = "Arama Sonuçları";
+}
+<h1>Arama Sonuçları</h1>
+
+<main class="products-section">
+    @if (Model.SearchResults.Count == 0)
+    {
+        <h2>Sonuç bulunamadı.</h2>
+    }
+    else
+    {
+        <div class="product-list">
+
+
+            @foreach (var item in Model.SearchResults)
+            {
+                <div class="product-card">
+                    <a href="/Products/Preview?id=@item.product_id" class="product-link">
+                        <img src="~/assets/products/@item.product_image" alt="@item.product_name">
+                        <h3>@item.product_name</h3>
+                        <p>₺@item.product_price</p>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+
+</main>
+
