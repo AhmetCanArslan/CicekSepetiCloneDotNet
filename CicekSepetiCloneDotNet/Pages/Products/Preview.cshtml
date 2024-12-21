@@ -2,7 +2,13 @@
 @model CicekSepetiCloneDotNet.Pages.Products.PreviewModel
 @{
 }
+@if (Model.message.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.message</strong>
 
+    </div>
+}
 <main class="product-details">
 
     <div class="product-image">
@@ -47,13 +53,14 @@
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        var errorMessage = '@(ViewData["ErrorMessage"] ?? string.Empty)'.trim();
-        var successMessage = '@(ViewData["SuccessMessage"] ?? string.Empty)'.trim();
+        var errorMessage = '@(ViewData["ErrorMessage"] ?? "").Replace("'", "\\'")';
+        var successMessage = '@(ViewData["SuccessMessage"] ?? "").Replace("'", "\\'")';
 
-        if (errorMessage.length > 0) {
+        if (errorMessage.trim().length > 0) {
             alert(errorMessage); // Hata mesajı göster
-        } else if (successMessage.length > 0) {
+        } else if (successMessage.trim().length > 0) {
             alert(successMessage); // Başarı mesajı göster
         }
     });
 </script>
+

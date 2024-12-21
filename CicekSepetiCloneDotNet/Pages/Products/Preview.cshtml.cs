@@ -15,11 +15,13 @@ namespace CicekSepetiCloneDotNet.Pages.Products
         public int commentCounter = 0;
         public string? user_id;
         public string? product_id;
+        public string? messageStatus;
+        public string? message="";
         public void OnGet()
         {
             product_id = Request.Query["id"];
             user_id = Request.Query["user_id"];
-            
+
 
             // Ürün bilgilerini getir
             try
@@ -81,7 +83,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                                 commentInfo.productId = "" + reader.GetInt32(2);
                                 commentInfo.comment = reader.GetString(1);
                                 commentInfo.commentTitle = reader.GetString(3);
-                                commentInfo.date =reader.GetDateTime(4);
+                                commentInfo.date = reader.GetDateTime(4);
                                 commentInfo.user_name = reader.GetString(5);
                                 commentInfo.productName = reader.GetString(6);
                                 commentCounter++;
@@ -96,6 +98,20 @@ namespace CicekSepetiCloneDotNet.Pages.Products
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
+            }
+
+            messageStatus = Request.Query["succesMessage"];
+            switch (messageStatus)
+            {
+                case "0":
+                    message = "Bir Hata Oluştu. Konsola bakınız";
+                    break;
+                case "1":
+                    message = "Ürün Başarıyla Sepete Eklendi";
+                    break;
+                case "2":
+                    message = "Sepetinizde bu ürün bulunuyor";
+                    break;
             }
         }
     }

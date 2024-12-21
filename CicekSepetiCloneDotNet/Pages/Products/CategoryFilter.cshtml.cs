@@ -8,12 +8,16 @@ namespace CicekSepetiCloneDotNet.Pages.Products
 {
     public class CategoryFilterModel : PageModel
     {
+        public string user_id = "";
+
         string errorMessage = "";
         public List<ProductInfo> productList = new List<ProductInfo>();
         public string id = "";
         public string CategoryName = "";
         public void OnGet()
         {
+            user_id = Request.Query["user_id"];
+
             String id = Request.Query["id"];            
 
             try

@@ -21,7 +21,7 @@
                     {
                         if (reader.Read())
                         {
-                            ViewData["ErrorMessage"] = "Ürün zaten sepette.";
+                            Response.Redirect("/Products/Preview?id=" + product_id + "&user_id=" + user_id + "&succesMessage=2");
                         }
                         else
                         {
@@ -33,7 +33,7 @@
                                 command2.Parameters.AddWithValue("@user_id", user_id);
                                 command2.ExecuteNonQuery();
                             }
-                            ViewData["SuccessMessage"] = "Ürün sepete başarıyla eklendi.";
+                            Response.Redirect("/Products/Preview?id=" + product_id + "&user_id=" + user_id + "&succesMessage=1");
                         }
                     }
                 }
@@ -46,6 +46,6 @@
     }
     catch (Exception ex)
     {
-        ViewData["ErrorMessage"] = "Bir hata oluştu: " + ex.Message;
+        Console.WriteLine(ex.Message);
     }
 }

@@ -7,11 +7,11 @@ namespace CicekSepetiCloneDotNet.Pages
     public class SearchModel : PageModel
     {
         public List<ProductInfo> SearchResults { get; set; } = new List<ProductInfo>();
-
+        public string user_id = "";
         public void OnGet()
         {
             String query = Request.Query["query"];
-
+            user_id = Request.Query["user_id"];
             if (!string.IsNullOrEmpty(query))
             {
                 try
