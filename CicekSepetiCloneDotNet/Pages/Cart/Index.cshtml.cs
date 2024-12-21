@@ -12,6 +12,8 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
         // Sepet verilerinin tutulduğu liste (örnek bir ViewModel)
         public List<CartItemViewModel> cartItems = new List<CartItemViewModel>();
         string user_id = "";
+        String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+
 
         // OnGet: Sepet verilerini getirir
         public void OnGet()
@@ -23,29 +25,30 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
         }
 
         // Ürün miktarını güncellemek için POST işlemi
-        public IActionResult OnPostUpdateQuantity(int cartId, int quantity)
+        public void OnPostUpdateQuantity(int cartId, int quantity ,int user_id)
         {
             if (quantity <= 0)
             {
                 ModelState.AddModelError("", "Miktar en az 1 olmalıdır.");
-                return Page();
+                Page();
             }
 
             // Veritabanında miktarı güncelle
             UpdateCartQuantity(cartId, quantity);
 
             // Tekrar sepete yönlendir
-            return RedirectToPage();
+            Response.Redirect("/Cart/Index?user_id="+ user_id);
+        
         }
 
-        // Ürünü sepetten kaldırmak için POST işlemi
-        public IActionResult OnPostRemoveFromCart(int cartId)
+    // Ürünü sepetten kaldırmak için POST işlemi
+    public void OnPostRemoveFromCart(int cartId, int user_id)
         {
             // Veritabanından ürünü sil
             RemoveCartItem(cartId);
 
             // Tekrar sepete yönlendir
-            return RedirectToPage();
+            Response.Redirect("/Cart/Index?user_id=" + user_id);
         }
 
         // Alışverişi tamamlamak için POST işlemi
@@ -63,7 +66,6 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
         {
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -89,6 +91,8 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
                                 cartProducts.ProductImage = reader.GetString(3);
                                 cartProducts.ProductPrice = reader.GetInt32(4);
                                 cartProducts.ProductId = ""+reader.GetInt32(5);
+                                cartProducts.cartId = ""+reader.GetInt32(6);
+                                cartProducts.userId = user_id;
 
 
                                 cartItems.Add(cartProducts);
@@ -107,14 +111,55 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
 
         private void UpdateCartQuantity(int cartId, int quantity)
         {
-            // Burada veritabanındaki miktar güncellenebilir.
-            // Örnek: "UPDATE Cart SET Quantity = @quantity WHERE CartId = @cartId"
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+
+                    string sql = "UPDATE tbl_cart SET quantity = @quantity WHERE CartId = @CartId";
+
+
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@CartId", cartId);
+                        command.Parameters.AddWithValue("@quantity", quantity);
+                        command.ExecuteNonQuery();
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
         }
 
         private void RemoveCartItem(int cartId)
         {
-            // Burada ürünü sepetten kaldırmak için veritabanından silinebilir.
-            // Örnek: "DELETE FROM Cart WHERE CartId = @cartId"
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string sql = "DELETE FROM TBL_Cart WHERE CartId = @cartId";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@cartId", cartId);
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // Hata mesajını loglamak için
+                Console.WriteLine(ex.Message); // Hata mesajını yazdırma (veya uygun loglama yapılabilir)
+                Response.Redirect("/Error"); // Hata sayfasına yönlendirme
+            }
         }
 
         private void CheckoutCart()
@@ -127,6 +172,8 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
     // Örnek ViewModel
     public class CartItemViewModel
     {
+        public string userId;
+        public string cartId;
         public string SellerName;
         public string ProductName;
         public int ProductQuantity;

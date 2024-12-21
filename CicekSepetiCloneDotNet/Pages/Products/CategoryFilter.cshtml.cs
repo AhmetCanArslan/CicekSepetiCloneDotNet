@@ -1,5 +1,5 @@
+using CicekSepetiCloneDotNet.Pages.AdminPage.Products;
 using CicekSepetiCloneDotNet.Pages.Categories;
-using CicekSepetiCloneDotNet.Pages.Index;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;

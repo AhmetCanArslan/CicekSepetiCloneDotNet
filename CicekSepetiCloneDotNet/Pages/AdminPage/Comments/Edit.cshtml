@@ -1,0 +1,70 @@
+﻿@page
+@model CicekSepetiCloneDotNet.Pages.AdminPage.Comments.EditModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+
+}
+<br />
+
+<h2>Edit Comment</h2>
+
+@if (Model.errorMessage.Length > 0) 
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+    </div>
+}
+
+
+<form method="Post">
+    <input type="hidden" name="id" value="@Model.commentInfo.commentId" />
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Comment</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="comment" value="@Model.commentInfo.comment">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Comment Title</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="commentTitle" value="@Model.commentInfo.commentTitle">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Product</label>
+        <div class="col-sm-6">
+            <select class="form-select" name="productId">
+                @foreach (var products in Model.listProducts)
+                {
+                <option value="@products.product_id" selected="@(products.product_id == Model.commentInfo.productId)">
+                    @products.product_name
+                </option>
+
+                }
+            </select>
+        </div>
+    </div>
+
+    @if (Model.succesMessage.Length > 0)
+    {
+        <div class="row mb-3">
+            <div class="col-sm-9">
+                <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+                    <strong>@Model.succesMessage</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+
+        </div>
+    }
+    <div class="row mb-3">
+        <div class="offset-sm-3 col-sm-3 d-grid">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="col-sm-3 d-grid">
+            <a class="btn btn-outline-primary" href="/Pages/AdminPage/Comments/Index" role="button">Cancel</a>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,40 @@
+﻿@page
+@model CicekSepetiCloneDotNet.Pages.AdminPage.Comments.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+
+}
+
+<br />
+<h2> List Of Comments</h2>
+<a class="btn btn-primary btn-sm" href="/AdminPage/Comments/Create">New Comment</a>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Comment ID</th>
+            <th>Product ID</th>
+            <th>Comment</th>
+            <th>Comment Title</th>
+            <th>User ID</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.listComments)
+        {
+            <tr>
+                <td>@item.commentId</td>
+                <td>@item.productId</td>
+                <td>@item.comment</td>
+                <td>@item.commentTitle</td>
+                <td>@item.userId</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/AdminPage/Comments/Edit?id=@item.commentId"> Edit </a>
+                    <a class="btn btn-danger btn-sm" href="/AdminPage/Comments/Delete?id=@item.commentId">Delete</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

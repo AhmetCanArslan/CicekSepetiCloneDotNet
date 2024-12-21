@@ -26,22 +26,24 @@
                 {
                     <tr>
                         <td>
-                            <img src="@item.ProductImage" alt="Ürün Görseli" class="img-thumbnail" style="width: 100px; height: 100px;" />
+                            <img src="~/assets/products/@item.ProductImage" alt="Ürün Görseli" class="img-thumbnail" style="width: 100px; height: 100px;" />
                             <span class="ms-2">@item.ProductName</span>
                         </td>
                         <td>@item.SellerName</td>
-                        <td>@item.ProductPrice.ToString("C")</td>
+                        <td>@item.ProductPrice</td>
                         <td>
                             <form asp-page-handler="UpdateQuantity" method="post" class="d-inline">
-                                <input type="hidden" name="CartId" value="@item.ProductId" />
+                                <input type="hidden" name="user_id" value="@item.userId" />
+                                <input type="hidden" name="CartId" value="@item.cartId" />
                                 <input type="number" name="Quantity" value="@item.ProductQuantity" min="1" class="form-control d-inline-block w-50" />
                                 <button type="submit" class="btn btn-sm btn-primary">Güncelle</button>
                             </form>
                         </td>
-                        <td>@(item.ProductQuantity * item.ProductPrice).ToString("C")</td>
+                        <td>@(item.ProductQuantity * item.ProductPrice)</td>
                         <td>
                             <form asp-page-handler="RemoveFromCart" method="post">
-                                <input type="hidden" name="CartId" value="@item.ProductId" />
+                                <input type="hidden" name="user_id" value="@item.userId" />
+                                <input type="hidden" name="cartId" value="@item.cartId" />
                                 <button type="submit" class="btn btn-sm btn-danger">Sil</button>
                             </form>
                         </td>
@@ -51,7 +53,7 @@
         </table>
 
         <div class="text-end mt-4">
-            <h4>Genel Toplam: @Model.cartItems.Sum(x => x.ProductQuantity * x.ProductPrice).ToString("C")</h4>
+            <h4>Genel Toplam: @Model.cartItems.Sum(x => x.ProductQuantity * x.ProductPrice) ₺</h4>
             <form asp-page-handler="Checkout" method="post">
                 <button type="submit" class="btn btn-success">Alışverişi Tamamla</button>
             </form>

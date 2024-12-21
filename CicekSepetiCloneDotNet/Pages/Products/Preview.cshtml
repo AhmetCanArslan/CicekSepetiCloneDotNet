@@ -3,6 +3,7 @@
 @{
 }
 <main class="product-details">
+
     <div class="product-image">
         <img src="~/assets/products/@Model.productInfo.product_image" alt="Ürün Adı">
     </div>
@@ -20,4 +21,31 @@
 
         <button class="add-to-cart">Sepete Ekle</button>
     </div>
+
+    
 </main>
+<!-- Yorumlar bölümü alt tarafa yerleştirildi -->
+
+<div class="comments-section">
+  <h2>Yorumlar (@Model.commentCounter)</h2>
+    
+    
+        @foreach (var comment in Model.commentInfos)
+    {
+        <div class="comment">
+            <div>
+                <h3>@comment.user_name</h3>
+                <small>@comment.date</small>
+                <p>@comment.comment</p>
+            </div>
+            <div class="comment-footer">
+                <div class="thumbs-up">
+                    <h3>@comment.commentTitle</h3>
+
+                </div>
+            </div>
+        </div>
+        }
+   
+    
+</div>

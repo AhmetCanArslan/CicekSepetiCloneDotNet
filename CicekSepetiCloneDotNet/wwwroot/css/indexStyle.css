@@ -256,3 +256,62 @@ body {
     font-size: 14px;
     color: #333232;
 }
+
+.comments-section {
+    display: flex;
+    align-items: center;
+    flex-direction: column; /* Yorumları alt alta sıralamak için */
+    gap: 20px; /* Yorumlar arasındaki boşluk */
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #ccc; /* Üst kısma bir çizgi ekliyoruz */
+    width: 100%; /* Sayfanın tamamını kaplaması için */
+}
+
+.comment {
+    display: flex;
+    align-items: center; /* İçeriklerin dikey hizalamasını düzenler */
+    justify-content: space-between; /* İçeriği yatayda dağıtır */
+    width: 100%; /* Tüm satırı kaplar */
+    max-width: 1200px; /* Çok büyük ekranlarda sınırlar */
+    padding: 15px;
+    border: 1px solid #ddd; /* İnce bir çerçeve */
+    border-radius: 8px; /* Köşeleri yuvarlar */
+    background-color: #f9f9f9; /* Hafif gri bir arka plan rengi */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+}
+
+    .comment h3 {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .comment p {
+        font-size: 14px;
+        color: #666;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .comment small {
+        font-size: 12px;
+        color: #999;
+    }
+
+    .comment .comment-footer {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        color: #666;
+    }
+
+    .comment .thumbs-up {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        color: #007bff;
+    }
