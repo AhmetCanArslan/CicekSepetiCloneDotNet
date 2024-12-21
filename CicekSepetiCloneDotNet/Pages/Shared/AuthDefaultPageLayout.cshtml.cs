@@ -1,62 +1,64 @@
 ﻿using CicekSepetiCloneDotNet.Pages.AdminPage.Users;
 using CicekSepetiCloneDotNet.Pages.Categories;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.IdentityModel.Tokens;
 using System.Data.SqlClient;
 
 namespace CicekSepetiCloneDotNet.Pages.Shared
 {
-    
     public class AuthDefaultPageLayout : PageModel
     {
-
         public List<CategoryInfo> listCategory = new List<CategoryInfo>();
         public UsersInfo userInfo = new UsersInfo();
 
-        
-
         public void OnGet(string id)
         {
-
-            if (id != null)
+            if (!string.IsNullOrEmpty(id) && int.TryParse(id, out int userId))
             {
-                try
+                GetUserById(userId);
+            }
+
+            GetCategories();
+        }
+
+        private void GetUserById(int userId)
+        {
+            try
+            {
+                using (SqlConnection connection = GetConnection())
                 {
-                    String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
-                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    connection.Open();
+                    String sql = "SELECT * FROM TBL_users WHERE user_id = @id";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        connection.Open();
-                        String sql = "SELECT * FROM TBL_users WHERE user_id = " + id;
-                        using (SqlCommand command = new SqlCommand(sql, connection))
+                        command.Parameters.AddWithValue("@id", userId);
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            using (SqlDataReader reader = command.ExecuteReader())
+                            if (reader.Read())
                             {
-                                while (reader.Read())
-                                {
-                                    userInfo.user_id = "" + reader.GetInt32(0);
-                                    userInfo.user_name = reader.GetString(1);
-                                    userInfo.user_surname = reader.GetString(2);
-                                    userInfo.user_mail = reader.GetString(3);
-                                    userInfo.user_number = "" + reader.GetInt64(4);
-                                    userInfo.user_city = reader.GetString(5);
-                                    userInfo.user_pass = reader.GetString(6);
-                                    userInfo.user_category = reader.GetString(7);
-                                }
+                                userInfo.user_id = reader["user_id"].ToString();
+                                userInfo.user_name = reader["user_name"].ToString();
+                                userInfo.user_surname = reader["user_surname"].ToString();
+                                userInfo.user_mail = reader["user_mail"].ToString();
+                                userInfo.user_number = reader["user_number"].ToString();
+                                userInfo.user_city = reader["user_city"].ToString();
+                                userInfo.user_pass = reader["user_pass"].ToString();
+                                userInfo.user_category = reader["user_category"].ToString();
                             }
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine(ex.ToString());
-                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Hata: {ex.Message}");
+            }
+        }
+
+        private void GetCategories()
+        {
             try
             {
-                String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = GetConnection())
                 {
                     connection.Open();
                     String sql = "SELECT * FROM TBL_Category";
@@ -66,12 +68,11 @@ namespace CicekSepetiCloneDotNet.Pages.Shared
                         {
                             while (reader.Read())
                             {
-                                CategoryInfo categoryInfo = new CategoryInfo();
-                                categoryInfo.category_id= "" + reader.GetInt32(0);
-                                categoryInfo.category_name = reader.GetString(1);
-
-                                listCategory.Add(categoryInfo);
-
+                                listCategory.Add(new CategoryInfo
+                                {
+                                    category_id = reader["category_id"].ToString(),
+                                    category_name = reader["category_name"].ToString()
+                                });
                             }
                         }
                     }
@@ -79,10 +80,14 @@ namespace CicekSepetiCloneDotNet.Pages.Shared
             }
             catch (Exception ex)
             {
-
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine($"Hata: {ex.Message}");
             }
         }
-       
+
+        private SqlConnection GetConnection()
+        {
+            String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+            return new SqlConnection(connectionString);
+        }
     }
 }

@@ -7,11 +7,12 @@ namespace CicekSepetiCloneDotNet.Pages
 {
     public class AuthIndexModel : PageModel
     {
-
+        public string user_id = "";
         public List<ProductInfo> listProduct = new List<ProductInfo>();
-
         public void OnGet()
         {
+            user_id = Request.Query["user_id"];
+
             try
             {
                 String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";

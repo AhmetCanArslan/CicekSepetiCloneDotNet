@@ -11,6 +11,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Users
         public string errorMessage = "";
         public string succesMessage = "";
         public string intMessage = "";
+        public string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
 
         public void OnGet()
         {
@@ -48,7 +49,6 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Users
 
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

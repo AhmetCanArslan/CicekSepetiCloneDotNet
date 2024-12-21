@@ -1,147 +1,119 @@
 ﻿@using CicekSepetiCloneDotNet.Pages.Shared
 @{
     string? id = Context.Session.GetString("user_id");
-    
+
     var layoutModel = new AuthDefaultPageLayout();
     layoutModel.OnGet(id); // Kategorileri yükle
-  
 }
 <!DOCTYPE html>
+<html lang="tr">
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ÇiçekSepeti</title>
     <link rel="stylesheet" href="~/css/indexStyle.css">
 </head>
-
-<!-- Navbar -->
-<header>
-    <nav class="navbar">
-        <div class="logo">
-            <a asp-page="/Index">
-                <img src="../assets/logo/ciceksepeti_logo.png" alt="Çiçeksepeti Logo">
-
-            </a>
-        </div>
-
-        <!-- Search Bar -->
-        <div class="search-bar">
-            <form method="get" action="/Products/SearchBarResult">
-                <input type="text" name="query" placeholder="Ürün, kategori veya marka ara..." required />
-                <button type="submit">Ara</button>
-            </form>
-
-        </div>
-        @if (layoutModel.userInfo.user_category == "Admin")
-        {
-            <div class="user-actions">
-                <label>Hoşgeldiniz, @layoutModel.userInfo.user_name</label>
-            </div>
-            <div class="user-actions">
-                <a asp-page="/AdminPage/Index">Admin Panel</a>
-            </div>
-
-            <div class="user-actions">
-                <a href="/Login/Index?status=logout" class="btn btn-danger">Oturumu Kapat</a>
-            </div>
-            <div class="user-actions">
-                <a href="/Cart/Index?user_id=@id">Sepetim</a>
-            </div>
-
-        }else if (layoutModel.userInfo.user_category == "Seller")
-        {
-            <div class="user-actions">
-                <label>Hoşgeldiniz, @layoutModel.userInfo.user_name</label>
-            </div>
-
-            <div class="user-actions">
-                <a asp-page="/SellerPage/Index">Seller Panel</a>
-            </div>
-            <div class="user-actions">
-                <a href="/Login/Index?status=0" class="btn btn-danger">Oturumu Kapat</a>
-            </div>
-            <div class="user-actions">
-                <a href="/Cart/Index?user_id=@id">Sepetim</a>
-            </div>
-        }
-        else if (layoutModel.userInfo.user_category == "User")
-        {
-            <div class="user-actions">
-                <label>Hoşgeldiniz, @layoutModel.userInfo.user_name</label>
-            </div>
-
-            <div class="user-actions">
-                <a href="/Login/Index?status=0" class="btn btn-danger">Oturumu Kapat</a>
-            </div>
-            <div class="user-actions">
-                <a href="/Cart/Index?user_id=@id">Sepetim</a>
-            </div>
-        }
-        else
-        {
-            <div class="user-actions">
-                <a asp-page="/Login/Index">Giriş Yap / Üye Ol</a>
-            </div>
-        }
-        
-    </nav>
-</header>
-
-
-
-<nav class="nav-category">
-    <ul class="menu">
-        @foreach (var item in layoutModel.listCategory)
-            {
-               <a href="/Products/CategoryFilter?id=@item.category_id">@item.category_name</a>
-                
-            }
-    </ul>
-</nav>
-
 <body>
-    
-    @RenderBody()
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="/Index">
+                    <img src="../assets/logo/ciceksepeti_logo.png" alt="Çiçeksepeti Logo">
+                </a>
+            </div>
 
-</body>
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <form method="get" action="/Products/SearchBarResult">
+                    <input type="text" name="query" placeholder="Ürün, kategori veya marka ara..." required>
+                    <button type="submit">Ara</button>
+                </form>
+            </div>
 
+            <div class="user-actions">
+                @if (layoutModel.userInfo.user_category == "Admin")
+                {
+                    <label>Hoşgeldiniz, @layoutModel.userInfo.user_name</label>
+                    <a class="user-actions" href="/AdminPage/Index">Admin Panel</a>
+                    <a class="user-actions" href="/Login/Index?status=logout" class="btn btn-danger">Oturumu Kapat</a>
+                    <a class="user-actions" href="/Cart/Index?user_id=@id">Sepetim</a>
+                }
+                else if (layoutModel.userInfo.user_category == "Seller")
+                {
+                    <label>Hoşgeldiniz, @layoutModel.userInfo.user_name</label>
+                    <a class="user-actions" href="/SellerPage/Index">Seller Panel</a>
+                    <a class="user-actions" href="/Login/Index?status=logout" class="btn btn-danger">Oturumu Kapat</a>
+                    <a class="user-actions" href="/Cart/Index?user_id=@id">Sepetim</a>
+                }
+                else if (layoutModel.userInfo.user_category == "User")
+                {
+                    <label>Hoşgeldiniz, @layoutModel.userInfo.user_name</label>
+                    <a class="user-actions" href="/Login/Index?status=logout" class="btn btn-danger">Oturumu Kapat</a>
+                    <a class="user-actions" href="/Cart/Index?user_id=@id">Sepetim</a>
+                }
+                else
+                {
+                    <a href="/Login/Index">Giriş Yap / Üye Ol</a>
+                }
+            </div>
+        </nav>
+    </header>
 
+    <!-- Categories -->
+    <nav class="nav-category">
+        <ul class="menu">
+            @foreach (var item in layoutModel.listCategory)
+            {
+                <li><a href="/Products/CategoryFilter?id=@item.category_id">@item.category_name</a></li>
+            }
+        </ul>
+    </nav>
 
-<footer class="footer">
-    <div class="footer-container">
-        <!-- Hakkında ve Bilgi -->
-        <div class="footer-section">
-            <h3>Hakkımızda</h3>
-            <ul>
-                <li><a href="#">Kurumsal</a></li>
-                <li><a href="#">Kariyer</a></li>
-                <li><a href="#">Gizlilik Politikası</a></li>
-                <li><a href="#">Kullanım Koşulları</a></li>
-            </ul>
-        </div>
+    <!-- Main Content -->
+    <main>
+        @RenderBody()
+    </main>
 
-        <!-- Yardım ve Destek -->
-        <div class="footer-section">
-            <h3>Yardım ve Destek</h3>
-            <ul>
-                <li><a href="#">Müşteri Hizmetleri</a></li>
-                <li><a href="#">İade ve Değişim</a></li>
-                <li><a href="#">Sıkça Sorulan Sorular</a></li>
-            </ul>
-        </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Hakkında ve Bilgi -->
+            <div class="footer-section">
+                <h3>Hakkımızda</h3>
+                <ul>
+                    <li><a href="#">Kurumsal</a></li>
+                    <li><a href="#">Kariyer</a></li>
+                    <li><a href="#">Gizlilik Politikası</a></li>
+                    <li><a href="#">Kullanım Koşulları</a></li>
+                </ul>
+            </div>
 
-        <!-- Sosyal Medya -->
-        <div class="footer-section">
-            <h3>Bizi Takip Edin</h3>
-            <div class="social-icons">
-                <a href="#"><img src="assets/icons/facebook.png" alt="Facebook"></a>
-                <a href="#"><img src="assets/icons/twitter.png" alt="Twitter"></a>
-                <a href="#"><img src="assets/icons/instagram.png" alt="Instagram"></a>
-                <a href="#"><img src="assets/icons/youtube.png" alt="YouTube"></a>
+            <!-- Yardım ve Destek -->
+            <div class="footer-section">
+                <h3>Yardım ve Destek</h3>
+                <ul>
+                    <li><a href="#">Müşteri Hizmetleri</a></li>
+                    <li><a href="#">İade ve Değişim</a></li>
+                    <li><a href="#">Sıkça Sorulan Sorular</a></li>
+                </ul>
+            </div>
+
+            <!-- Sosyal Medya -->
+            <div class="footer-section">
+                <h3>Bizi Takip Edin</h3>
+                <div class="social-icons">
+                    <a href="#"><img src="assets/icons/facebook.png" alt="Facebook"></a>
+                    <a href="#"><img src="assets/icons/twitter.png" alt="Twitter"></a>
+                    <a href="#"><img src="assets/icons/instagram.png" alt="Instagram"></a>
+                    <a href="#"><img src="assets/icons/youtube.png" alt="YouTube"></a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="footer-bottom">
-        <p>&copy; 2024 Çiçeksepeti Klon. Tüm hakları saklıdır.</p>
-    </div>
-</footer>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Çiçeksepeti Klon. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+</body>
+</html>

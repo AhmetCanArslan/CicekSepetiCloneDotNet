@@ -49,10 +49,11 @@ namespace CicekSepetiCloneDotNet.Pages.Login
                                 var id = reader["user_id"].ToString();
 
                                 // Kullanıcı ID'sini Session'a koy
+                                ViewData["user_id"] = id;
                                 HttpContext.Session.SetString("user_id", id);
 
                                 // Kullanıcıyı başka bir sayfaya yönlendir
-                                Response.Redirect("/Index");
+                                Response.Redirect("/Index?user_id="+id);
 
                             }
                             else

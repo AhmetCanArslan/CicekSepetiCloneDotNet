@@ -12,7 +12,7 @@
             @foreach (var item in Model.listProduct)
             {
                 <div class="product-card">
-                    <a href="/Products/Preview?id=@item.product_id" class="product-link">
+                <a href="/Products/Preview?id=@item.product_id&user_id=@Model.user_id" class="product-link">
                         <img src="~/assets/products/@item.product_image" alt="@item.product_name">
                         <h3>@item.product_name</h3>
                         <p>₺@item.product_price</p>

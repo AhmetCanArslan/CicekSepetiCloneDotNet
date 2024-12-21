@@ -2,38 +2,53 @@
 @model CicekSepetiCloneDotNet.Pages.Login.RegistrationModel
 @{
     Layout = "~/Pages/Shared/LoginLayout.cshtml";
+
 }
+@if (Model.errorMessage.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+    </div>
+}
+@if (Model.successMessage.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.successMessage</strong>
+    </div>
+}
+<form method="Post">
 <p>
     <label>Ad<span>*</span></label>
-    <input type="text" required>
+    <input type="text" required name="name">
 </p>
 <p>
     <label>Soyad<span>*</span></label>
-    <input type="text" required>
+    <input type="text" required name="surname">
 </p>
 <p>
     <label>Email Adresi<span>*</span></label>
-    <input type="email" required>
+        <input type="email" required name="mail">
 </p>
 <p>
     <label>Tel No<span>*</span></label>
-    <input type="tel" maxlength="12" required placeholder="05005005050" />
+        <input type="tel" maxlength="12" required name="phone" />
 </p>
 <p>
     <label>Şehir<span>*</span></label>
-    <input type="text" required>
+        <input type="text" required name="city">
 </p>
 <p>
     <label>Şifre<span>*</span></label>
-    <input type="password" required>
+        <input type="password" required name="pass">
 </p>
 <p>
     <label>Şifre Tekrar<span>*</span></label>
-    <input type="password" required>
+        <input type="password" required name="pass2">
 </p>
 <p>
     <label>
-        <a asp-page="/Users/LoginIndex">Hesabınız var mı?</a>
+        <a asp-page="/Login/Index">Hesabınız var mı?</a>
     </label>
     <input type="submit" value="Kayıt Ol" />
 </p>
+</form>

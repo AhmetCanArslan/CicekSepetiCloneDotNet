@@ -2,6 +2,7 @@
 @model CicekSepetiCloneDotNet.Pages.Products.PreviewModel
 @{
 }
+
 <main class="product-details">
 
     <div class="product-image">
@@ -14,12 +15,7 @@
         <p class="stock">Stoktaki Adet: @Model.productInfo.product_quantity</p>
         <p class="stock">Satıcı: @Model.productInfo.product_seller_name</p>
 
-        <div class="quantity">
-            <label for="quantity">Adet:</label>
-            <input type="number" id="quantity" name="quantity" value="1" min="1">
-        </div>
-
-        <button class="add-to-cart">Sepete Ekle</button>
+        <a class="add-to-cart" href="/Products/AddToCart?product_id=@Model.product_id&user_id=@Model.user_id">Sepete Ekle</a>
     </div>
 
     
@@ -49,3 +45,15 @@
    
     
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var errorMessage = '@(ViewData["ErrorMessage"] ?? string.Empty)'.trim();
+        var successMessage = '@(ViewData["SuccessMessage"] ?? string.Empty)'.trim();
+
+        if (errorMessage.length > 0) {
+            alert(errorMessage); // Hata mesajı göster
+        } else if (successMessage.length > 0) {
+            alert(successMessage); // Başarı mesajı göster
+        }
+    });
+</script>

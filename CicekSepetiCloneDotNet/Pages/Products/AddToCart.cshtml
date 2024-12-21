@@ -1,0 +1,51 @@
+﻿@page
+@using System.Data.SqlClient;
+@{
+    try
+    {
+        string user_id = Request.Query["user_id"];
+        string product_id = Request.Query["product_id"];
+
+        if(user_id != "")
+        {
+            String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string sql = "Select * FROM TBL_cart WHERE productId= @product_id and userId=@user_id";
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@product_id", product_id);
+                    command.Parameters.AddWithValue("@user_id", user_id);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            ViewData["ErrorMessage"] = "Ürün zaten sepette.";
+                        }
+                        else
+                        {
+                            reader.Close(); // Okuma bittiğinde reader'ı kapatın
+                            string sql2 = "INSERT INTO TBL_cart (userId, productId, quantity) VALUES (@user_id, @product_id, 1)";
+                            using (SqlCommand command2 = new SqlCommand(sql2, connection))
+                            {
+                                command2.Parameters.AddWithValue("@product_id", product_id);
+                                command2.Parameters.AddWithValue("@user_id", user_id);
+                                command2.ExecuteNonQuery();
+                            }
+                            ViewData["SuccessMessage"] = "Ürün sepete başarıyla eklendi.";
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            Response.Redirect("/Login/Index");
+        }        
+    }
+    catch (Exception ex)
+    {
+        ViewData["ErrorMessage"] = "Bir hata oluştu: " + ex.Message;
+    }
+}

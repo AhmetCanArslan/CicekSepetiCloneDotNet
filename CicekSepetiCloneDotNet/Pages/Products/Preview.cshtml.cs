@@ -13,9 +13,13 @@ namespace CicekSepetiCloneDotNet.Pages.Products
         public ProductInfo productInfo = new ProductInfo();
         public List<CommentInfo> commentInfos = new List<CommentInfo>();
         public int commentCounter = 0;
+        public string? user_id;
+        public string? product_id;
         public void OnGet()
         {
-            String id = Request.Query["id"];
+            product_id = Request.Query["id"];
+            user_id = Request.Query["user_id"];
+            
 
             // Ürün bilgilerini getir
             try
@@ -29,7 +33,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        command.Parameters.AddWithValue("@product_id", id);
+                        command.Parameters.AddWithValue("@product_id", product_id);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -67,7 +71,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@ProductID", id);
+                        command.Parameters.AddWithValue("@ProductID", product_id);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
