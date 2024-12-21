@@ -54,9 +54,7 @@
 
         <div class="text-end mt-4">
             <h4>Genel Toplam: @Model.cartItems.Sum(x => x.ProductQuantity * x.ProductPrice) ₺</h4>
-            <form asp-page-handler="Checkout" method="post">
-                <button type="submit" class="btn btn-success">Alışverişi Tamamla</button>
-            </form>
+                <a type="submit" class="btn btn-success" href="/Cart/Payment">Alışverişi Tamamla</a>
         </div>
     }
     else

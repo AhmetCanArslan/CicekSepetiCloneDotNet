@@ -1,0 +1,44 @@
+﻿@page
+@model CicekSepetiCloneDotNet.Pages.SellerPage.Orders.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2> List Of Orders</h2>
+<a class="btn btn-primary btn-sm" href="/SellerPage/Categories/Create?seller_id=@Model.seller_id">New Category</a>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Product ID</th>
+            <th>Buyer Name</th>
+            <th>Product Quantity</th>
+            <th>OrderDate</th>
+            <th>is Active</th>
+            <th>is Sent</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.listOrder)
+        {
+            <tr>
+                <td>@item.order_id</td>
+                <td>@item.product_name</td>
+                <td>@item.product_id</td>
+                <td>@item.buyer_name</td>
+                <td>@item.productQuantity</td>
+                <td>@item.orderDate</td>
+                <td>@item.isActive</td>
+                <td>@item.isSent</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/SellerPage/Orders/Accept?id=@item.order_id">Accept order</a>
+                    <a class="btn btn-danger btn-sm" href="/SellerPage/Orders/Reject?id=@item.order_id">Reject order</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,107 @@
+﻿/* Sayfa Genel Stil */
+body {
+    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Sayfa İçeriğini Ortaya Almak İçin */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Sayfanın tamamını kapsayacak şekilde */
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Başlık Stili */
+h2 {
+    text-align: center;
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Form Başlıkları */
+h4 {
+    color: #495057;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+/* Form ve Input Alanları */
+.form-group label {
+    font-weight: bold;
+    color: #495057;
+}
+
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 16px;
+    box-shadow: none;
+    transition: border-color 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    }
+
+/* Sepet Özeti Tablosu */
+.table {
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin-bottom: 30px;
+}
+
+    .table th, .table td {
+        text-align: center;
+        padding: 15px;
+        font-size: 16px;
+        color: #495057;
+    }
+
+    .table th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .table tbody tr {
+        background-color: #f9f9f9;
+    }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f1f1f1;
+        }
+
+    .table tfoot tr {
+        font-weight: bold;
+    }
+
+/* Ödeme Butonu */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 12px 20px;
+    font-size: 18px;
+    width: 100%;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+/* Responsive Özellikler */
