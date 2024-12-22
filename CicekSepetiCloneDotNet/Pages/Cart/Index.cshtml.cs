@@ -11,7 +11,7 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
     {
         // Sepet verilerinin tutulduğu liste (örnek bir ViewModel)
         public List<CartItemViewModel> cartItems = new List<CartItemViewModel>();
-        string user_id = "";
+        public string user_id = "";
         String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
 
 
@@ -52,14 +52,7 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
         }
 
         // Alışverişi tamamlamak için POST işlemi
-        public IActionResult OnPostCheckout()
-        {
-            // Ödeme işlemi veya sipariş oluşturma işlemi (simülasyon)
-            CheckoutCart();
-
-            // Sepet başarıyla tamamlandı sayfasına yönlendirme
-            return RedirectToPage("/Checkout/Success");
-        }
+      
 
         // Aşağıdaki metotlar örnek olarak veritabanı işlemlerini simüle eder:
         private List<CartItemViewModel> GetCartItemsFromDatabase(string user_id)

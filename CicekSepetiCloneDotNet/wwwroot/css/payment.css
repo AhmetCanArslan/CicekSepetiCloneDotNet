@@ -1,107 +1,80 @@
-﻿/* Sayfa Genel Stil */
-body {
-    background-color: #f4f4f4;
-    font-family: 'Arial', sans-serif;
-}
+﻿/* Sayfa Görünüm Ayarları */
 
-/* Sayfa İçeriğini Ortaya Almak İçin */
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Sayfanın tamamını kapsayacak şekilde */
+    max-width: 800px;
+    margin: 50px auto;
+    background: #fff;
     padding: 30px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Başlık Stili */
 h2 {
-    text-align: center;
-    font-size: 36px;
+    font-size: 28px;
     color: #333;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
-/* Form Başlıkları */
 h4 {
-    color: #495057;
-    font-weight: bold;
-    margin-top: 20px;
+    font-size: 20px;
+    color: #555;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.form-group {
     margin-bottom: 15px;
 }
 
-/* Form ve Input Alanları */
-.form-group label {
+from-group .label {
     font-weight: bold;
-    color: #495057;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
 }
 
 .form-control {
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    width: 100%;
     padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     font-size: 16px;
-    box-shadow: none;
-    transition: border-color 0.3s ease;
 }
 
-    .form-control:focus {
-        border-color: #007bff;
-        box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
-    }
-
-/* Sepet Özeti Tablosu */
 .table {
     margin-top: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    margin-bottom: 30px;
+    width: 100%;
+    border-collapse: collapse;
 }
 
     .table th, .table td {
+        padding: 12px;
+        border: 1px solid #ddd;
         text-align: center;
-        padding: 15px;
-        font-size: 16px;
-        color: #495057;
     }
 
     .table th {
         background-color: #007bff;
-        color: white;
+        color: #fff;
     }
 
-    .table tbody tr {
+    .table tr:nth-child(even) {
         background-color: #f9f9f9;
     }
 
-        .table tbody tr:nth-child(even) {
-            background-color: #f1f1f1;
-        }
-
-    .table tfoot tr {
-        font-weight: bold;
-    }
-
-/* Ödeme Butonu */
 .btn-primary {
     background-color: #007bff;
-    border-color: #007bff;
+    border: none;
     padding: 12px 20px;
-    font-size: 18px;
-    width: 100%;
-    border-radius: 8px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 4px;
+    text-align: center;
     text-transform: uppercase;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 100%;
+    cursor: pointer;
 }
 
     .btn-primary:hover {
         background-color: #0056b3;
-        transform: scale(1.05);
     }
-
-/* Responsive Özellikler */

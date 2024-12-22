@@ -1,50 +1,40 @@
 ﻿@page
 @model CicekSepetiCloneDotNet.Pages.Cart.PaymentModel
 @{
-    var cartItems = Model.listOrder; // Sepet ürünleri
+    var cartItems = Model.cartItems; // Sepet ürünleri
     //var totalPrice = cartItems.Sum(item => item.ProductPrice * item.Quantity); // Toplam tutar
 }
 <head>
     <link rel="stylesheet" href="~/css/payment.css" />
 </head>
-<div class="container mt-5">
-    <h2>Ödeme Sayfası</h2>
+<div class="container">
+    <h2 class="text-center">Ödeme Sayfası</h2>
 
     <!-- Kullanıcı Bilgileri Formu -->
-    <form method="post">
+    <form method="post" class="payment-form">
         <h4>Kullanıcı Bilgileri</h4>
         <div class="form-group">
-            <label for="name">Ad Soyad</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Adınız ve Soyadınız" required>
+            <label>Ad Soyad:  @Model.buyerInfo.user_name @Model.buyerInfo.user_surname</label>
         </div>
         <div class="form-group">
-            <label for="email">E-posta</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="E-posta adresiniz" required>
+            <label>E-posta:  @Model.buyerInfo.user_mail</label>
         </div>
         <div class="form-group">
-            <label for="phone">Telefon Numarası</label>
-            <input type="text" class="form-control" id="phone" name="phone" placeholder="Telefon numaranız" required>
+            <label >Telefon Numarası:  @Model.buyerInfo.user_number</label>
         </div>
 
         <!-- Adres Bilgileri -->
         <h4>Adres Bilgileri</h4>
         <div class="form-group">
-            <label for="address">Adres</label>
             <input type="text" class="form-control" id="address" name="address" placeholder="Adresinizi girin" required>
         </div>
         <div class="form-group">
-            <label for="city">Şehir</label>
-            <input type="text" class="form-control" id="city" name="city" placeholder="Şehir" required>
-        </div>
-        <div class="form-group">
-            <label for="postalCode">Posta Kodu</label>
-            <input type="text" class="form-control" id="postalCode" name="postalCode" placeholder="Posta Kodu" required>
+            <labe>Şehir:  @Model.buyerInfo.user_city</labe>
         </div>
 
         <!-- Ödeme Yöntemi -->
         <h4>Ödeme Yöntemi</h4>
         <div class="form-group">
-            <label for="paymentMethod">Ödeme Yöntemi Seçin</label>
             <select class="form-control" id="paymentMethod" name="paymentMethod" required>
                 <option value="creditCard">Kredi Kartı</option>
                 <option value="bankTransfer">Banka Havalesi</option>
@@ -57,6 +47,7 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Ürün Görseli</th>
                     <th>Ürün Adı</th>
                     <th>Adet</th>
                     <th>Fiyat</th>
@@ -66,19 +57,24 @@
                 @foreach (var item in cartItems)
                 {
                     <tr>
-                        <td>@item.product_name</td>
-                        <td>@item.productQuantity</td>
-                        <td>₺ PRİCE</td>
+                        <td>
+                            <img src="~/assets/products/@item.ProductImage" alt="Ürün Görseli" style="width: 100px; height: auto;" />
+                        </td>
+                        <td>@item.ProductName</td>
+                        <td>@item.ProductQuantity</td>
+                        <td>@item.ProductPrice ₺</td>
                     </tr>
                 }
                 <tr>
-                    <td colspan="2" class="text-right"><strong>Toplam Tutar:</strong></td>
-                    <td><strong>₺ totalPrice</strong></td>
+                    <td class="text-left"><strong></strong></td>
+                    <td class="text-left"><strong></strong></td>
+                    <td class="text-left"><strong>Toplam Tutar:</strong></td>
+                    <td><strong>₺ @Model.totalPrice</strong></td>
                 </tr>
             </tbody>
         </table>
 
         <!-- Ödeme Butonu -->
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Ödemeyi Tamamla</button>
+        <button type="submit" class="btn btn-primary btn-block">Ödemeyi Tamamla</button>
     </form>
 </div>
