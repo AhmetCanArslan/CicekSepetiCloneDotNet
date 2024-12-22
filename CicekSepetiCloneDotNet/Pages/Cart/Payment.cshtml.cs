@@ -54,6 +54,25 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
             }
         }
 
+        public void OnPost()
+        {
+
+        }
+
+        private void createOrder()
+        {
+            //carttan çekilenleri order tablosuna ekle
+        }
+
+        public void createPayment()
+        {
+            //order tablosundan çekilenleri payment tablosuna ekle
+        }
+
+        public void createMessage()
+        {
+            //order ve payment tablosundan çekilenleri message tablosuna ekle
+        }
 
         private List<CartItemViewModel> GetCartItemsFromDatabase(string user_id)
         {

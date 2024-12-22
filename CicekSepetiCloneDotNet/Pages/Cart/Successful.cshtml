@@ -1,0 +1,38 @@
+﻿@page
+@model CicekSepetiCloneDotNet.Pages.Cart.Successful
+@{
+    ViewData["Title"] = "Ödeme Başarılı";
+}
+<link rel="stylesheet" href="~/css/paymentSuccess.css" />
+
+<div class="payment-status">
+    <div id="loadingMessage" class="loading">
+        Ödeme sürüyor...
+    </div>
+    <div id="successMessage" class="success hidden">
+        Ödeme Başarılı!
+    </div>
+</div>
+
+
+<script>
+    // Minimum ve maksimum süreler (milisaniye cinsinden)
+    const minTime = 3000; // 3 saniye
+    const maxTime = 6000; // 6 saniye
+
+    // Random süre belirle
+    const waitTime = Math.floor(Math.random() * (maxTime - minTime + 1)) + minTime;
+
+    // Mesaj elemanlarını al
+    const loadingMessage = document.getElementById("loadingMessage");
+    const successMessage = document.getElementById("successMessage");
+
+    // Zamanlayıcı başlat
+    setTimeout(() => {
+        // "Ödeme sürüyor..." mesajını gizle
+        loadingMessage.style.display = "none";
+
+        // "Ödeme Başarılı!" mesajını göster
+        successMessage.style.display = "block";
+    }, waitTime);
+</script>
