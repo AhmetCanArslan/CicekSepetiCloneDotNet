@@ -1,9 +1,11 @@
-using CicekSepetiCloneDotNet.Pages.AdminPage.Products;
+Ôªøusing CicekSepetiCloneDotNet.Pages.AdminPage.Products;
 using CicekSepetiCloneDotNet.Pages.AdminPage.Users;
 using CicekSepetiCloneDotNet.Pages.SellerPage.Orders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
+using System.Net;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CicekSepetiCloneDotNet.Pages.Cart
 {
@@ -12,12 +14,45 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
         public string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
         public string? buyer_id;
         public List<CartItemViewModel> cartItems = new List<CartItemViewModel>();
+        public List<string> productIds = new List<string>();
         public UsersInfo buyerInfo = new UsersInfo();
         public int totalPrice = 0;
         public void OnGet()
         {
             buyer_id = Request.Query["user_id"];
             cartItems = GetCartItemsFromDatabase(buyer_id);
+            getBuyerInfo(buyer_id);
+
+
+        }
+        public string paymentMethod;
+        public string address;
+        public void OnPost()
+        {
+            buyer_id = Request.Query["user_id"];
+
+            paymentMethod = Request.Form["paymentMethod"];
+            address = Request.Form["address"];
+
+            List<CartItemViewModel> cartItems2 = GetCartItemsFromDatabase(buyer_id);
+            createOrder(cartItems2, address);
+
+            List<string> productIds = GetProductIds(buyer_id);
+
+            UsersInfo buyerInfo = getBuyerInfo(buyer_id);
+
+
+            createMessage(buyerInfo, productIds);
+
+            deactiveCartItems(cartItems2);
+
+            Response.Redirect("/Cart/Successful");
+        }
+
+       
+
+        private UsersInfo getBuyerInfo(string buyer_id)
+        {
             try
             {
                 //get user addres from database
@@ -34,7 +69,7 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
                         {
                             if (reader.Read())
                             {
-                                buyerInfo.user_id= reader["user_id"].ToString();
+                                buyerInfo.user_id = reader["user_id"].ToString();
                                 buyerInfo.user_name = reader["user_name"].ToString();
                                 buyerInfo.user_surname = reader["user_surname"].ToString();
                                 buyerInfo.user_mail = reader["user_mail"].ToString();
@@ -44,7 +79,7 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
                         }
                     }
 
-                    
+
                 }
             }
             catch (Exception ex)
@@ -52,26 +87,130 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
 
                 Console.WriteLine(ex.ToString());
             }
+            return buyerInfo;
         }
 
-        public void OnPost()
+        private void deactiveCartItems(List<CartItemViewModel> cartItems)
         {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string sql = "update TBL_cart set isActive=0 where cartId=@cartId";
+                        
 
+                    foreach (var item in cartItems)
+                    {
+                        using (SqlCommand command = new SqlCommand(sql, connection))
+                        {
+                            command.Parameters.AddWithValue("@cartId", item.cartId);
+
+
+                            command.ExecuteNonQuery();
+                        }
+
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
-        private void createOrder()
+        private void createOrder(List<CartItemViewModel> cartItems, string address)
         {
-            //carttan Áekilenleri order tablosuna ekle
-        }
+            //carttan √ßekilenleri order tablosuna ekle
+            
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string sql = "INSERT INTO TBL_orders " +
+                        "(productId, userId,productQuantity,orderDate,isActive, isSent, PaymentMethod, Adress,Price) VALUES " +
+                        "(@productId, @userId, @productQuantity, @orderDate, 1, 0,@PaymentMethod,@Adress, @price);";
 
-        public void createPayment()
-        {
-            //order tablosundan Áekilenleri payment tablosuna ekle
-        }
+                    foreach (var item in cartItems)
+                    {
+                        using (SqlCommand command = new SqlCommand(sql, connection))
+                        {
+                            command.Parameters.AddWithValue("@productId", item.ProductId);
+                            command.Parameters.AddWithValue("@userId", item.userId);
+                            command.Parameters.AddWithValue("@productQuantity", item.ProductQuantity);
+                            command.Parameters.AddWithValue("@orderDate", DateTime.Now);
+                            command.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
+                            command.Parameters.AddWithValue("@Adress", address);
+                            command.Parameters.AddWithValue("@price", item.ProductPrice * item.ProductQuantity);
 
-        public void createMessage()
+                            command.ExecuteNonQuery();
+                        }
+                        
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+        }
+      
+
+        public void createMessage(UsersInfo buyerInfo, List<string> productIds)
         {
-            //order ve payment tablosundan Áekilenleri message tablosuna ekle
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    
+                    string seller_id = string.Empty;
+
+                    foreach (var item in productIds)
+                    {
+                        string sql = "Select * from TBL_products where product_id ="+item;
+                        using (SqlCommand command = new SqlCommand(sql, connection))
+                        {
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    seller_id = reader["product_seller_id"].ToString();
+                                }
+                            }
+
+                        }
+
+                        sql = "INSERT INTO TBL_Messages " +
+                        "(Title,isRead,SellerId,ProductId) VALUES " +
+                        "(@Title, 0, @SellerId,@ProductId);";
+                        using (SqlCommand command = new SqlCommand(sql, connection))
+                        {
+                            command.Parameters.AddWithValue("@Title", buyerInfo.user_name + " Adlƒ± Ki≈üiden Yeni Sipari≈üiniz var.");
+                            command.Parameters.AddWithValue("@ProductId", item);
+                            command.Parameters.AddWithValue("@SellerId", seller_id);
+
+
+                            command.ExecuteNonQuery();
+                        }
+
+                    }
+
+                    
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
         }
 
         private List<CartItemViewModel> GetCartItemsFromDatabase(string user_id)
@@ -106,7 +245,6 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
                                 cartProducts.cartId = "" + reader.GetInt32(6);
                                 cartProducts.userId = user_id;
                                 totalPrice += cartProducts.ProductPrice * cartProducts.ProductQuantity;
-
                                 cartItems.Add(cartProducts);
                             }
                         }
@@ -118,6 +256,43 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
                 Console.WriteLine(ex.ToString());
             }
             return cartItems;
+
+        }
+        private List<string> GetProductIds(string user_id)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+
+                    string sql = "GetCartDetailsByUser";
+
+
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@UserId", user_id);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                CartItemViewModel cartProducts = new CartItemViewModel();
+                                cartProducts.ProductId = "" + reader.GetInt32(5);
+                                productIds.Add(cartProducts.ProductId);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return productIds;
 
         }
     }
