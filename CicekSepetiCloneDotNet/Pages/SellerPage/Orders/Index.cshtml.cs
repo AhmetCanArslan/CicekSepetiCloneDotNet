@@ -7,7 +7,8 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Orders
     public class IndexModel : PageModel
     {
         string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
-        public List<OrderInfo> listOrder = new List<OrderInfo>();
+        public List<OrderInfo> NewlistOrder = new List<OrderInfo>();
+        public List<OrderInfo> OldListOrder = new List<OrderInfo>();
         public string seller_id;
         public void OnGet()
         {
@@ -37,9 +38,14 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Orders
                                 orderInfo.orderDate = reader.GetDateTime(5);
                                 orderInfo.isActive = reader.GetInt32(6);
                                 orderInfo.isSent = reader.GetInt32(7);
-                                if(orderInfo.isActive == 1)
+                                orderInfo.product_image = reader.GetString(11);
+                                if (orderInfo.isActive == 1)
                                 {
-                                    listOrder.Add(orderInfo);
+                                    NewlistOrder.Add(orderInfo);
+                                }
+                                else
+                                {
+                                    OldListOrder.Add(orderInfo);
                                 }
                             }
                         }
@@ -51,6 +57,30 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Orders
 
                 Console.WriteLine(ex.ToString());
             }
+        }
+        public void OnPostAcceptOrder(int orderId, int seller_id)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string sql = "update tbl_orders set isSent=1, isActive=0 where id=" + orderId;
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.ToString());
+            }
+
+            Response.Redirect("/SellerPage/Orders/Index?id=" + seller_id);
+
         }
     }
 
@@ -64,5 +94,9 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Orders
         public DateTime orderDate;
         public int isActive;
         public int isSent;
+        public string payment_method;
+        public string address;
+        public int price;
+        public string product_image;
     }
 }

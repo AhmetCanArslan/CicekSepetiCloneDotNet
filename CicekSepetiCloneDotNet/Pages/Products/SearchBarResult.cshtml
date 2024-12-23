@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Arama Sonuçları";
 }
-<h1>Arama Sonuçları</h1>
+
+
+
 
 <main class="products-section">
     @if (Model.SearchResults.Count == 0)
@@ -12,6 +14,7 @@
     }
     else
     {
+        <h2>Arama Sonuçları</h2>
         <div class="product-list">
 
 

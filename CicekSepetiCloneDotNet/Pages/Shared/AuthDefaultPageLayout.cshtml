@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="~/css/indexStyle.css">
 </head>
 <body>
-    <!-- Navbar -->
     <header>
         <nav class="navbar">
+            <!-- Logo -->
             <div class="logo">
                 <a href="/Index?user_id=@id">
                     <img src="../assets/logo/ciceksepeti_logo.png" alt="Çiçeksepeti Logo">
@@ -26,31 +26,36 @@
             <!-- Search Bar -->
             <div class="search-bar">
                 <form method="get" action="/Products/SearchBarResult">
+                    <input type="hidden" name="user_id" value="@id">
                     <input type="text" name="query" placeholder="Ürün, kategori veya marka ara..." required>
                     <button type="submit">Ara</button>
                 </form>
             </div>
 
+            <!-- User Actions -->
             <div class="user-actions">
                 @if (layoutModel.userInfo.user_category == "Admin")
                 {
                     <label>Hoşgeldiniz, @layoutModel.userInfo.user_name</label>
-                    <a class="user-actions" href="/AdminPage/Index">Admin Panel</a>
-                    <a class="user-actions" href="/Login/Index?status=logout" class="btn btn-danger">Oturumu Kapat</a>
-                    <a class="user-actions" href="/Cart/Index?user_id=@id">Sepetim</a>
+                    <a href="/AdminPage/Index">Admin Panel</a>
+                    <a href="/Login/Index?status=logout">Oturumu Kapat</a>
+                    <a href="/Products/Orders?user_id=@id">Siparişlerim</a>
+                    <a href="/Cart/Index?user_id=@id">Sepetim</a>
                 }
                 else if (layoutModel.userInfo.user_category == "Seller")
                 {
                     <label>Hoşgeldiniz, @layoutModel.userInfo.user_name</label>
-                    <a class="user-actions" href="/SellerPage/Index">Seller Panel</a>
-                    <a class="user-actions" href="/Login/Index?status=logout" class="btn btn-danger">Oturumu Kapat</a>
-                    <a class="user-actions" href="/Cart/Index?user_id=@id">Sepetim</a>
+                    <a href="/SellerPage/Index?user_id=@id">Seller Panel</a>
+                    <a href="/Login/Index?status=logout">Oturumu Kapat</a>
+                    <a href="/Products/Orders?user_id=@id">Siparişlerim</a>
+                    <a href="/Cart/Index?user_id=@id">Sepetim</a>
                 }
                 else if (layoutModel.userInfo.user_category == "User")
                 {
                     <label>Hoşgeldiniz, @layoutModel.userInfo.user_name</label>
-                    <a class="user-actions" href="/Login/Index?status=logout" class="btn btn-danger">Oturumu Kapat</a>
-                    <a class="user-actions" href="/Cart/Index?user_id=@id">Sepetim</a>
+                    <a href="/Login/Index?status=logout">Oturumu Kapat</a>
+                    <a href="/Products/Orders?user_id=@id">Siparişlerim</a>
+                    <a href="/Cart/Index?user_id=@id">Sepetim</a>
                 }
                 else
                 {
@@ -60,12 +65,13 @@
         </nav>
     </header>
 
+
     <!-- Categories -->
     <nav class="nav-category">
         <ul class="menu">
             @foreach (var item in layoutModel.listCategory)
             {
-                <li><a href="/Products/CategoryFilter?id=@item.category_id">@item.category_name</a></li>
+                <li><a href="/Products/CategoryFilter?id=@item.category_id&user_id=@id">@item.category_name</a></li>
             }
         </ul>
     </nav>

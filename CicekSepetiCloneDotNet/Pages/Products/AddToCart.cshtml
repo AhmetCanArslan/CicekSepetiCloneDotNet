@@ -12,7 +12,7 @@
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string sql = "Select * FROM TBL_cart WHERE productId= @product_id and userId=@user_id";
+                string sql = "Select * FROM TBL_cart WHERE productId= @product_id and userId=@user_id and isActive=1";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@product_id", product_id);
