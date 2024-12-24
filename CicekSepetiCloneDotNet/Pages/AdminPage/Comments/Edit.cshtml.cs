@@ -9,7 +9,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Comments
 {
     public class EditModel : PageModel
     {
-        string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+        string connectionString = ConnectionStrings.DefaultConnection;
         public CommentInfo commentInfo = new CommentInfo();
         public List<ProductInfo> listProducts = new List<ProductInfo>();
         public string errorMessage = "";

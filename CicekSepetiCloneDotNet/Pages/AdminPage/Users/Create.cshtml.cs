@@ -11,7 +11,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Users
         public string errorMessage = "";
         public string succesMessage = "";
         public string intMessage = "";
-        public string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+        string connectionString = ConnectionStrings.DefaultConnection;
 
         public void OnGet()
         {

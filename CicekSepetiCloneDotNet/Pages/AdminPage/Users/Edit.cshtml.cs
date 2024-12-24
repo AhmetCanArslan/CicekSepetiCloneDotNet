@@ -10,6 +10,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Users
         public string errorMessage = "";
         public string succesMessage = "";
         public string intMessage = "";
+        string connectionString = ConnectionStrings.DefaultConnection;
 
         public void OnGet()
         {
@@ -23,7 +24,6 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Users
 
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -86,7 +86,6 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Users
 
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -116,9 +115,6 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Users
                 return;
             }
 
-            succesMessage = "User updated successfully. Redirecting to users page!";
-            int milliseconds = 2000;
-            Thread.Sleep(milliseconds);
 
             Response.Redirect("/AdminPage/Users");
         }

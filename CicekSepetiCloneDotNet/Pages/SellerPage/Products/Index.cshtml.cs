@@ -9,13 +9,13 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Products
     {
         public List<ProductInfo> listProduct = new List<ProductInfo>();
         public string seller_id;
+        string connectionString = ConnectionStrings.DefaultConnection;
 
         public void OnGet()
         {
             seller_id = Request.Query["id"];
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

@@ -8,6 +8,8 @@ namespace CicekSepetiCloneDotNet.Pages
     {
         public List<ProductInfo> SearchResults { get; set; } = new List<ProductInfo>();
         public string user_id = "";
+        string connectionString = ConnectionStrings.DefaultConnection;
+
         public void OnGet()
         {
             String query = Request.Query["query"];
@@ -16,7 +18,6 @@ namespace CicekSepetiCloneDotNet.Pages
             {
                 try
                 {
-                    string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
 
                     using (SqlConnection connection = new SqlConnection(connectionString))
                     {

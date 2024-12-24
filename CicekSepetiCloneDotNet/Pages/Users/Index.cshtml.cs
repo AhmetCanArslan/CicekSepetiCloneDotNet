@@ -6,12 +6,13 @@ namespace CicekSepetiCloneDotNet.Pages.Users
 {
     public class ListUsersModel : PageModel
     {
+        string connectionString = ConnectionStrings.DefaultConnection;
+
         public List<UsersInfo> listUsers = new List<UsersInfo>();
         public void OnGet()
         {
             try
             {
-                String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

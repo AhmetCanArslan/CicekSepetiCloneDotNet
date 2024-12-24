@@ -14,6 +14,8 @@ namespace CicekSepetiCloneDotNet.Pages.Products
         public List<ProductInfo> productList = new List<ProductInfo>();
         public string id = "";
         public string CategoryName = "";
+        string connectionString = ConnectionStrings.DefaultConnection;
+
         public void OnGet()
         {
             user_id = Request.Query["user_id"];
@@ -22,7 +24,6 @@ namespace CicekSepetiCloneDotNet.Pages.Products
 
             try
             {
-                String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

@@ -5,10 +5,10 @@
     {
         string user_id = Request.Query["user_id"];
         string product_id = Request.Query["product_id"];
+        string connectionString = ConnectionStrings.DefaultConnection;
 
         if(user_id != "")
         {
-            String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();

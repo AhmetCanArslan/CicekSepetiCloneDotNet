@@ -7,6 +7,8 @@ namespace CicekSepetiCloneDotNet.Pages
 {
     public class AuthIndexModel : PageModel
     {
+        string connectionString = ConnectionStrings.DefaultConnection;
+
         public string user_id = "";
         public List<ProductInfo> listProduct = new List<ProductInfo>();
         public void OnGet()
@@ -15,7 +17,6 @@ namespace CicekSepetiCloneDotNet.Pages
 
             try
             {
-                String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

@@ -12,6 +12,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
         public List<UsersInfo> users = new List<UsersInfo>();
         public string errorMessage = "";
         public string succesMessage = "";
+        string connectionString = ConnectionStrings.DefaultConnection;
 
         public void OnGet()
         {
@@ -24,8 +25,6 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
 
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
-
                 // Kategoriyi getir
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -88,7 +87,6 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
 
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

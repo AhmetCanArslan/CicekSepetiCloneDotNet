@@ -11,7 +11,7 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
 {
     public class PaymentModel : PageModel
     {
-        public string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+        string connectionString = ConnectionStrings.DefaultConnection;
         public string? buyer_id;
         public List<CartItemViewModel> cartItems = new List<CartItemViewModel>();
         public List<string> productIds = new List<string>();

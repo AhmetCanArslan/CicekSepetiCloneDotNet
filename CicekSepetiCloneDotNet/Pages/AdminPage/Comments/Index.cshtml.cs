@@ -6,12 +6,13 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Comments
 {
     public class IndexModel : PageModel
     {
+        string connectionString = ConnectionStrings.DefaultConnection;
+
         public List<CommentInfo> listComments = new List<CommentInfo>();
         public void OnGet()
         {
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

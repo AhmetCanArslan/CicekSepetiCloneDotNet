@@ -10,6 +10,7 @@ namespace CicekSepetiCloneDotNet.Pages.Shared
     {
 
         public UsersInfo userInfo = new UsersInfo();
+        string connectionString = ConnectionStrings.DefaultConnection;
 
 
         public void OnGet(string id)
@@ -19,7 +20,6 @@ namespace CicekSepetiCloneDotNet.Pages.Shared
             {
                 try
                 {
-                    String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                     using (SqlConnection connection = new SqlConnection(connectionString))
                     {
                         connection.Open();

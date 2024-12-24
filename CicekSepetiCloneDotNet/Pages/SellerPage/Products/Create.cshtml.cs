@@ -11,6 +11,8 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Products
 {
     public class CreateModel : PageModel
     {
+        string connectionString = ConnectionStrings.DefaultConnection;
+
         public ProductInfo productInfo = new ProductInfo();
         public string errorMessage = "";
         public string succesMessage = "";
@@ -24,7 +26,6 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Products
             seller_id = Request.Query["id"];
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -94,7 +95,6 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Products
             //save the product to the data
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

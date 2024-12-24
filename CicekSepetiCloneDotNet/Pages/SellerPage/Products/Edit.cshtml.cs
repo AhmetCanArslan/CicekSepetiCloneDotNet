@@ -11,6 +11,8 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Products
 {
     public class EditModel : PageModel
     {
+        string connectionString = ConnectionStrings.DefaultConnection;
+
         public ProductInfo productInfo = new ProductInfo();
 
         public List<CategoryInfo> Categories = new List<CategoryInfo>();
@@ -37,7 +39,6 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Products
             try
             {
 
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -135,7 +136,6 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Products
 
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

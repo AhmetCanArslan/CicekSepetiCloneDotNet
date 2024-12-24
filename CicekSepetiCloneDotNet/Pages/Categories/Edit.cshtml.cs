@@ -7,6 +7,8 @@ namespace CicekSepetiCloneDotNet.Pages.Categories
 {
     public class EditModel : PageModel
     {
+        string connectionString = ConnectionStrings.DefaultConnection;
+
         public CategoryInfo categoryInfo = new CategoryInfo();
         public string errorMessage = "";
         public string succesMessage = "";
@@ -21,7 +23,6 @@ namespace CicekSepetiCloneDotNet.Pages.Categories
             }
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -59,7 +60,6 @@ namespace CicekSepetiCloneDotNet.Pages.Categories
 
             try
             {
-                String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -81,10 +81,6 @@ namespace CicekSepetiCloneDotNet.Pages.Categories
                 Console.WriteLine(err.Message);
                 return;
             }
-
-            succesMessage = "Category updated successfully. Redirecting to categories page!";
-            int milliseconds = 2000;
-            Thread.Sleep(milliseconds);
 
             Response.Redirect("/Categories/Index");
         }

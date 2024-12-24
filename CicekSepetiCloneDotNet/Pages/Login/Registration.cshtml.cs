@@ -10,7 +10,7 @@ namespace CicekSepetiCloneDotNet.Pages.Login
         public string errorMessage = "";
         public string successMessage = "";
         public UsersInfo userInfo = new UsersInfo();
-        public string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+        string connectionString = ConnectionStrings.DefaultConnection;
 
         public void OnPost()
         {

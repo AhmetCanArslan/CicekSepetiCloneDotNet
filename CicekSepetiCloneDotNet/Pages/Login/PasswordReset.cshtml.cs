@@ -8,7 +8,8 @@ namespace CicekSepetiCloneDotNet.Pages.Login
 {
     public class PasswordResetModel : PageModel
     {
-        public string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+        string connectionString = ConnectionStrings.DefaultConnection;
+
         public string errorMessage = "";
         public void OnGet()
         {

@@ -6,7 +6,7 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Orders
 {
     public class IndexModel : PageModel
     {
-        string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+        string connectionString = ConnectionStrings.DefaultConnection;
         public List<OrderInfo> NewlistOrder = new List<OrderInfo>();
         public List<OrderInfo> OldListOrder = new List<OrderInfo>();
         public string seller_id;

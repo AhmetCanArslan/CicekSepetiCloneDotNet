@@ -10,7 +10,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
     {
         public List<OrderInfo> orders = new List<OrderInfo>();
         public string user_id = "";
-        String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+        string connectionString = ConnectionStrings.DefaultConnection;
         public void OnGet()
         {
             user_id = Request.Query["user_id"];

@@ -12,7 +12,7 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
         // Sepet verilerinin tutulduğu liste (örnek bir ViewModel)
         public List<CartItemViewModel> cartItems = new List<CartItemViewModel>();
         public string user_id = "";
-        String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+        string connectionString = ConnectionStrings.DefaultConnection;
 
 
         // OnGet: Sepet verilerini getirir
@@ -155,11 +155,7 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
             }
         }
 
-        private void CheckoutCart()
-        {
-            // Sepeti tamamla ve siparişi kaydet.
-            // Örnek: Sipariş tablosuna ekleme işlemi yapılabilir.
-        }
+     
     }
 
     // Örnek ViewModel

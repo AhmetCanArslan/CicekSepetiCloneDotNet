@@ -6,7 +6,7 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage
 {
     public class IndexModel : PageModel
     {
-        public string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+        string connectionString = ConnectionStrings.DefaultConnection;
 
         string? seller_id;
         public List<MessageInfo> ReadListMessage = new List<MessageInfo>();
@@ -45,7 +45,6 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage
         {
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

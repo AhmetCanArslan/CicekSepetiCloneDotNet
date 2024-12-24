@@ -4,8 +4,9 @@
 
     try
     {
+        string connectionString = ConnectionStrings.DefaultConnection;
+
         String id = Request.Query["id"];
-        String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             connection.Open();

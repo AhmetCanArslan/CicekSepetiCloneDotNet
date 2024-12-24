@@ -7,7 +7,7 @@
         string seller_id = "";
 
         String id = Request.Query["id"];
-        String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+        string connectionString = ConnectionStrings.DefaultConnection;
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             connection.Open();

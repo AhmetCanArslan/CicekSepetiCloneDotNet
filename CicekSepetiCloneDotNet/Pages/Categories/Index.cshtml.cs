@@ -6,12 +6,13 @@ namespace CicekSepetiCloneDotNet.Pages.Categories
 {
     public class IndexModel : PageModel
     {
+        string connectionString = ConnectionStrings.DefaultConnection;
+
         public List<CategoryInfo> listCategory = new List<CategoryInfo>();
         public void OnGet()
         {
             try
             {
-                String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

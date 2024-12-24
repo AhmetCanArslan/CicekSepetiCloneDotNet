@@ -17,13 +17,13 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
         public string intMessage = "";
         public List<CategoryInfo> Categories { get; set; } = new List<CategoryInfo>();
         public List<UsersInfo> Users { get; set; } = new List<UsersInfo>();
+        string connectionString = ConnectionStrings.DefaultConnection;
 
 
         public void OnGet()
         {
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -92,7 +92,6 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
             //save the product to the data
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

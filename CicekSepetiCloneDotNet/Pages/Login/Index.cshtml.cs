@@ -11,6 +11,7 @@ namespace CicekSepetiCloneDotNet.Pages.Login
         public UsersInfo userInfo = new UsersInfo();
         public string errorMessage = "";
         string logOutStatus = "";
+        string connectionString = ConnectionStrings.DefaultConnection;
 
         public void OnGet()
         {
@@ -31,7 +32,6 @@ namespace CicekSepetiCloneDotNet.Pages.Login
 
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

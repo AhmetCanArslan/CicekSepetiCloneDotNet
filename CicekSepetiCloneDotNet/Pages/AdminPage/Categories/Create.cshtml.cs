@@ -1,11 +1,7 @@
 ﻿using CicekSepetiCloneDotNet.Pages.AdminPage.Users;
-using Microsoft.AspNetCore.CookiePolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
-using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
 {
@@ -16,10 +12,11 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
         public string errorMessage = "";
         public string succesMessage = "";
         public string intMessage = "";
+        string connectionString = ConnectionStrings.DefaultConnection;
+
         public void OnGet()
         {
             // Satıcıları getir
-            string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open(); // Bağlantıyı açmayı unutmayın!

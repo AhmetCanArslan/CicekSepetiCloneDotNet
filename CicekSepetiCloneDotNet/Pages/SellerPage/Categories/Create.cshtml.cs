@@ -10,6 +10,8 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Categories
 {
     public class CreateModel : PageModel
     {
+        string connectionString = ConnectionStrings.DefaultConnection;
+
         public CategoryInfo categoryInfo = new CategoryInfo();
         public string errorMessage = "";
         public string succesMessage = "";
@@ -43,7 +45,6 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Categories
             //save the product to the data
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

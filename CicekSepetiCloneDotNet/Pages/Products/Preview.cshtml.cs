@@ -8,7 +8,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
 {
     public class PreviewModel : PageModel
     {
-        String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
+        string connectionString = ConnectionStrings.DefaultConnection;
 
         public ProductInfo productInfo = new ProductInfo();
         public List<CommentInfo> commentInfos = new List<CommentInfo>();

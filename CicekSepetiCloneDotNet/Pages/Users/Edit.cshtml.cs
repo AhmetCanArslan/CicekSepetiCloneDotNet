@@ -7,6 +7,8 @@ namespace CicekSepetiCloneDotNet.Pages.Users
 {
     public class EditModel : PageModel
     {
+        string connectionString = ConnectionStrings.DefaultConnection;
+
         public UsersInfo userInfo = new UsersInfo();
         public string errorMessage = "";
         public string succesMessage = "";
@@ -24,7 +26,6 @@ namespace CicekSepetiCloneDotNet.Pages.Users
 
             try
             {
-                String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -87,7 +88,6 @@ namespace CicekSepetiCloneDotNet.Pages.Users
 
             try
             {
-                String connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -117,9 +117,6 @@ namespace CicekSepetiCloneDotNet.Pages.Users
                 return;
             }
 
-            succesMessage = "User updated successfully. Redirecting to users page!";
-            int milliseconds = 2000;
-            Thread.Sleep(milliseconds);
 
             Response.Redirect("/Users");
         }

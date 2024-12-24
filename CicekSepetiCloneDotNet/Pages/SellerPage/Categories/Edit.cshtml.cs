@@ -12,6 +12,8 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Categories
         public string succesMessage = "";
         public string intMessage = "";
         public string seller_id;
+        string connectionString = ConnectionStrings.DefaultConnection;
+
         public void OnGet()
         {
             string id = Request.Query["id"];
@@ -22,7 +24,6 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Categories
             }
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -62,7 +63,6 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Categories
 
             try
             {
-                string connectionString = "Data Source=JUANWIN\\SQLEXPRESS;Initial Catalog=DbProjectCicekSepeti;Integrated Security=True;Encrypt=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
