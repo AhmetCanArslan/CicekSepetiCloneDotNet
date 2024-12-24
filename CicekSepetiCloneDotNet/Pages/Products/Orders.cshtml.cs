@@ -9,6 +9,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
     public class OrdersModel : PageModel
     {
         public List<OrderInfo> orders = new List<OrderInfo>();
+        public List<OrderInfo> OldOrders = new List<OrderInfo>();
         public string user_id = "";
         string connectionString = ConnectionStrings.DefaultConnection;
         public void OnGet()
@@ -53,6 +54,10 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                                 if (orderInfo.isActive == 1)
                                 {
                                     orders.Add(orderInfo);
+                                }
+                                else
+                                {
+                                    OldOrders.Add(orderInfo);
                                 }
                             }
                         }
