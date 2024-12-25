@@ -10,6 +10,7 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Products
         public List<ProductInfo> listProduct = new List<ProductInfo>();
         public string seller_id;
         string connectionString = ConnectionStrings.DefaultConnection;
+        public int productCount;
 
         public void OnGet()
         {
@@ -46,6 +47,21 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Products
 
 
                                 listProduct.Add(productInfo);
+                            }
+                        }
+                    }
+
+                    sql = "SELECT dbo.GetTotalProductsBySellerID(@SellerID)";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@SellerID", seller_id);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                productCount = reader.GetInt32(0); // Fonksiyon sonucu
                             }
                         }
                     }

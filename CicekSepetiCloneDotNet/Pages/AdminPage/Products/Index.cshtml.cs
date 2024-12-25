@@ -8,6 +8,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
     public class IndexModel : PageModel
     {
         string connectionString = ConnectionStrings.DefaultConnection;
+        public string productCount ="";
 
         public List<ProductInfo> listProduct = new List<ProductInfo>();
         public void OnGet(string categoryId)
@@ -45,6 +46,23 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
 
 
                                 listProduct.Add(productInfo);
+                            }
+                        }
+                    }
+
+                    sql = "SELECT dbo.GetTotalProductCount()";
+
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+
+                        
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                productCount = ""+reader.GetInt32(0);
+                                
                             }
                         }
                     }

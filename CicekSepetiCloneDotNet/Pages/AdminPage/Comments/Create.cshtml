@@ -1,0 +1,40 @@
+﻿@page
+@model CreateModel
+@{
+}
+<link rel="stylesheet" href="~/css/commentStyle.css" asp-append-version="true" />
+
+<h1 class="commentHeader">Yorum Yap</h1>
+<br/>
+@if (Model.errorMessage.Length > 0)
+{
+    <div>
+        <h4 class="errorHeader">@Model.errorMessage</h4>
+
+    </div>
+
+}
+
+
+<link rel="stylesheet" href="~/css/commentStyle.css" asp-append-version="true" />
+
+
+<form method="Post" class="comment-form">
+    <div class="row mb-3">
+        <img src="~/assets/products/@Model.productInfo.product_image" class="product-image" alt="Product Image">
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Yorum Başlığı</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control input-title" name="title" >
+        </div>
+    </div>
+    <br/>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Yorumunuz</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control input-comment" name="comment" >
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Gönder</button>
+</form>

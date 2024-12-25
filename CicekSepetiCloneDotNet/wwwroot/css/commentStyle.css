@@ -1,0 +1,45 @@
+﻿/* Form genel düzeni */
+.comment-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.commentHeader{
+    text-align: center;
+}
+
+/* Görsel düzeni */
+.product-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    border-radius: 10px;
+}
+
+/* Input alanları */
+.input-title,
+.input-comment {
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 10px;
+}
+.col-form-label {
+    margin-top: 20px;
+}
+/* Buton düzeni */
+.btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top:10px;
+}
