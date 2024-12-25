@@ -60,6 +60,8 @@
                     <th>Ürün Adedi</th>
                     <th>OrderDate</th>
                     <th>is Sent</th>
+                    <th> </th>
+
                 </tr>
             </thead>
             <tbody>
@@ -71,6 +73,7 @@
                         <td>@item.productQuantity</td>
                         <td>@item.orderDate</td>
                         <td>@item.isSent</td>
+                        <td><a href="/AdminPage/Comments/Create?product_id=@item.product_id&user_id=@Model.user_id">Yorum Yap</a></td>
 
                     </tr>
                 }
