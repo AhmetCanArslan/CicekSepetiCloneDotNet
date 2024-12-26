@@ -65,12 +65,12 @@
         </div>
     </div>
     <div class="row mb-3">
-    <label class="col-sm-3 col-form-label">Category</label>
+    <label class="col-sm-3 col-form-label">Role</label>
     <div class="col-sm-6">
-        <select class="form-select" name="category">
-            <option value="Admin" selected="@(Model.userInfo.user_category == "admin" ? "selected" : "")">Admin</option>
-                <option value="Seller" selected="@(Model.userInfo.user_category == "seller" ? "selected" : "")">Seller</option>
-                <option value="User" selected="@(Model.userInfo.user_category == "user" ? "selected" : "")">User</option>
+        <select class="form-select" name="category" >
+                <option value="Admin" selected="@(Model.userInfo.user_category == "Admin" ? "Admin" : "")">Admin</option>
+                <option value="Seller" selected="@(Model.userInfo.user_category == "Seller" ? "Seller" : "")">Seller</option>
+                <option value="User" selected="@(Model.userInfo.user_category == "User" ? "User" : "")">User</option>
         </select>
     </div>
 </div>
