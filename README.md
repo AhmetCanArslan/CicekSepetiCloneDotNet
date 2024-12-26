@@ -5,7 +5,11 @@ In this project i tried to replicate ciceksepeti.com
 
 ## Installation
 
-To make the project work on computer please install the database that i provided with files. After that you have to change connection string of course.
+To make the project work on computer please install the database that i provided with files. To do this 
+
+Sql Management Studio -> Right click database folder and Import Data-Tier App -> Next -> Select the file that i provided.
+
+After that you have to change connection string of course.
 
 To change connection string, simply open the 
 
