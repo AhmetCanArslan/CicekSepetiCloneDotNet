@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
 {
+    // To create category, we  need to get connection string first and make connection with sql server
     public class CreateModel : PageModel
     {
         public CategoryInfo categoryInfo = new CategoryInfo();
@@ -40,10 +41,11 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
         }
         public void OnPost()
         {
+            // get the data from the form and send it to the database
             categoryInfo.category_name = Request.Form["name"];
             categoryInfo.creator_id = Request.Form["seller_id"];
 
-
+            //check if the data is valid
             if (categoryInfo.category_name.Length == 0)
             {
                 errorMessage = "All the fields are required";

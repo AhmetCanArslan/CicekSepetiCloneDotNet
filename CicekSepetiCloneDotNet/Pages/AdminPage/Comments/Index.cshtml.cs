@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 
@@ -6,6 +6,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Comments
 {
     public class IndexModel : PageModel
     {
+        //admin tüm yorumları görebilir düzenleyebliir ve silebilir 
         string connectionString = ConnectionStrings.DefaultConnection;
 
         public List<CommentInfo> listComments = new List<CommentInfo>();

@@ -8,6 +8,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Comments
 {
     public class CreateModel : PageModel
     {
+        //yorum yapma sayfası
         string connectionString = ConnectionStrings.DefaultConnection;
 
         public string errorMessage= " ";
@@ -58,6 +59,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Comments
         }
         public void OnPost()
         {
+            //formdan yorum içeriğini al ve veritabanına ekle
             user_id = Request.Query["user_id"];
             product_id = Request.Query["product_id"];
             commentInfo.comment = Request.Form["comment"];
@@ -84,6 +86,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Comments
             {
                  Console.WriteLine(ex.ToString());
             }
+            //daha sonra yorum yapılan ürünün detay sayfasına yönlendir
             Response.Redirect("/Products/Preview?id="+product_id+"&user_id="+user_id);
         }
     }

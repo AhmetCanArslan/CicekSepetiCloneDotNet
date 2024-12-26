@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
-using CicekSepetiCloneDotNet.Pages.Users;
+using CicekSepetiCloneDotNet.Pages.AdminPage.Users;
 using CicekSepetiCloneDotNet.Pages.SellerPage.Categories;
 using System.Data.SqlClient;
 

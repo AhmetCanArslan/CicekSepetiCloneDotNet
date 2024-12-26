@@ -1,5 +1,5 @@
 ﻿using CicekSepetiCloneDotNet.Pages.AdminPage.Users;
-using CicekSepetiCloneDotNet.Pages.Categories;
+using CicekSepetiCloneDotNet.Pages.AdminPage.Categories;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 
@@ -15,9 +15,9 @@ namespace CicekSepetiCloneDotNet.Pages.Shared
         {
             if (!string.IsNullOrEmpty(id) && int.TryParse(id, out int userId))
             {
-                GetUserById(userId);
+                GetUserById(userId); // user bilgilerini getir ve userInfo'ye ata. böylece layout'ta user bilgilerine erişebiliriz
             }
-
+            //eğer user id yoksa demek ki giriş yapılmadı bu yüzden sadece kategorileri getir
             GetCategories();
         }
 

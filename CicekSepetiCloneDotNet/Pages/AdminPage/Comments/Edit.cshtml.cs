@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace CicekSepetiCloneDotNet.Pages.AdminPage.Comments
 {
+    //yorumda hakaret varsa veya yazım yanlışı varsa admin bunu düzeltebelir
     public class EditModel : PageModel
     {
         string connectionString = ConnectionStrings.DefaultConnection;

@@ -4,6 +4,7 @@
 
     try
     {
+        // admin yorumları silebilir. yorumlar küfür içeriyorsa silinebilir.
         String id = Request.Query["id"];
         string connectionString = ConnectionStrings.DefaultConnection;
         using (SqlConnection connection = new SqlConnection(connectionString))

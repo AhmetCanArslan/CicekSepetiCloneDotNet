@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 
@@ -12,6 +12,7 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Orders
         public string seller_id;
         public void OnGet()
         {
+            // burada satıcıya ait siparişler listelenir accept işelmmeri buradan yapılır
             seller_id = Request.Query["id"];
             try
             {
@@ -61,7 +62,7 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Orders
         public void OnPostAcceptOrder(int orderId, int seller_id)
         {
             try
-            {
+            {// eğer sipariş onaylanırsa isSent=1 yapılır ve isActive=0 yapılır ve Siparişler farazi olarak yola çıkar
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
@@ -17,7 +17,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Users
         {
 
         }
-
+        // kullanicinin bilgilerini alip veritabanina ekler
         public void OnPost()
         {
             userInfo.user_name = Request.Form["name"];
@@ -49,6 +49,8 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Users
 
             try
             {
+
+                // veritabanina kullanici bilgilerini ekler eğer girilen değerler doğruysa
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

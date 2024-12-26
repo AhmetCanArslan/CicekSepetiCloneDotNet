@@ -17,6 +17,7 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Products
             seller_id = Request.Query["id"];
             try
             {
+                // satıcı sadece kendi ürünlerini görebilir düzenleyebilir veya silebilir
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

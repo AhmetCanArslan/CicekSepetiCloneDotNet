@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 
@@ -11,6 +11,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
 
         public void OnGet()
         {
+            //kategorileri sql'e bağlanarak getir
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -46,6 +47,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
     }
     public class CategoryInfo
     {
+        //kategorilerin bilgileri
         public string? category_id;
         public string? category_name; 
         public string? creator_id;

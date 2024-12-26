@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
@@ -9,6 +9,7 @@ using CicekSepetiCloneDotNet.Pages.AdminPage.Categories;
 
 namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
 {
+    // admin sayfaya yeni ürün buradan ekler
     public class CreateModel : PageModel
     {
         public ProductInfo productInfo = new ProductInfo();
@@ -23,7 +24,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
         public void OnGet()
         {
             try
-            {
+            {// ilk önce kategorileri getir çünkü dropdown menüde kategorileri göstermemiz gerekiyor
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -40,6 +41,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
                             });
                         }
                     }
+                    // daha sonra satıcıları getir çünkü ürünün bir satıcısı olması gerekiyor
                     string sql2 = "SELECT user_id, user_name, user_surname FROM TBL_USERS where user_category='seller' ";
                     using (SqlCommand command2 = new SqlCommand(sql2, connection))
                     using (SqlDataReader reader2 = command2.ExecuteReader())

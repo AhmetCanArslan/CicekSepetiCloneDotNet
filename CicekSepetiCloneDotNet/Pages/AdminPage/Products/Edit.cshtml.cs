@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
@@ -26,7 +26,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
         {
             string id = Request.Query["id"];
 
-
+            // ürünün bilgilerini getir ve formu önceden doldur.
 
             if (string.IsNullOrEmpty(id))
             {
@@ -41,7 +41,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
                 {
                     connection.Open();
 
-                    // �r�n bilgilerini getir
+                    // Ürün bilgilerini getir
                     string sql = "GetProductByIdWithSellerAndCategory";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
@@ -86,7 +86,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
                             }
                         }
                     }
-                    //Get Sellers
+                    //satıcıları getir
 
                     string sql2 = "SELECT * FROM dbo.GetSellers()";
                     using (SqlCommand command2 = new SqlCommand(sql2, connection))
@@ -133,7 +133,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
                 intMessage = "Price should be int";
                 return;
             }
-
+            // girilen değerleri kontrl et
             if (!pattern.Match(productInfo.product_quantity).Success)
             {
                 intMessage = "Quantity should be int";
@@ -150,6 +150,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
 
             try
             {
+                // eğer değerler uygunsa ürünü databaseye bağlanarak güncelle
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

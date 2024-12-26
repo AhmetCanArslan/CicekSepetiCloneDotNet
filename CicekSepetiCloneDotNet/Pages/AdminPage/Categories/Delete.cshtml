@@ -1,7 +1,7 @@
 ﻿@page
 @using System.Data.SqlClient;
 @{
-
+    // to delete the category, we need to connect to the database and delete the category with the given id
     try
     {
         String id = Request.Query["id"];

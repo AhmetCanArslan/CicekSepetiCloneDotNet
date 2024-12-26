@@ -20,8 +20,8 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
         public void OnGet()
         {
             buyer_id = Request.Query["user_id"];
-            cartItems = GetCartItemsFromDatabase(buyer_id);
-            getBuyerInfo(buyer_id);
+            cartItems = GetCartItemsFromDatabase(buyer_id);// sepetteki ürünleri getirir. kullanıcı id'si ile
+            getBuyerInfo(buyer_id);// kullanıcı bilgilerini getirir. kullanıcı id'si ile
 
 
         }
@@ -35,14 +35,14 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
             address = Request.Form["address"];
 
             List<CartItemViewModel> cartItems2 = GetCartItemsFromDatabase(buyer_id);
-            createOrder(cartItems2, address);
+            createOrder(cartItems2, address);//ürünleri order tablosuna ekler
 
             List<string> productIds = GetProductIds(buyer_id);
 
-            UsersInfo buyerInfo = getBuyerInfo(buyer_id);
+            UsersInfo buyerInfo = getBuyerInfo(buyer_id);//kullanıcı bilgilerini getirir
 
 
-            deactiveCartItems(cartItems2);
+            deactiveCartItems(cartItems2);//satın alınan ürünleri cart tablosundan siler
 
             Response.Redirect("/Cart/Successful");
         }

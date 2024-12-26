@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 
@@ -12,6 +12,7 @@ namespace CicekSepetiCloneDotNet.Pages.SellerPage.Categories
 
         public void OnGet()
         {
+            // satıcı sadece kendi oluşturduğu kategorileri görebilir ve düzenleyebilir
             seller_id = Request.Query["id"];
             try
             {

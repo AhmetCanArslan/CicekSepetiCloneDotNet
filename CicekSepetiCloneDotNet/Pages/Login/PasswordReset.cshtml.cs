@@ -19,6 +19,7 @@ namespace CicekSepetiCloneDotNet.Pages.Login
         {
             string mail = Request.Form["email"];
             string phone = Request.Form["phone"];
+            //eğer email ve phone doğruysa kullanıcıyı bulup id'sini alıp PasswordResetAuth sayfasına yönlendiriyoruz
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))

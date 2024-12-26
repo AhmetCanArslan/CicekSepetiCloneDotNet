@@ -23,13 +23,15 @@ namespace CicekSepetiCloneDotNet.Pages.Login
                 Response.Redirect("/Index");
 
             }
+
+            // eğer çıkış yapılmak istenilmişse bu sayfaya gelecek ve contexti silecek ve çıkış yapılmış olacak
         }
 
         public void OnPost()
         {
             string mail = Request.Form["mail"];
             string pass = Request.Form["password"];
-
+            //mail ve pass alıp database işlemleri yapacak
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))

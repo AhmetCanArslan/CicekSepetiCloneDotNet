@@ -13,6 +13,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
         public List<ProductInfo> listProduct = new List<ProductInfo>();
         public void OnGet(string categoryId)
         {
+            // tüm ürünleri getir
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -49,7 +50,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
                     }
 
                     sql = "SELECT dbo.GetTotalProductCount()";
-
+                    // toplam ürün sayısını getir
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -87,7 +88,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
         public string product_seller_name;
         public string product_category_name;
         public string product_category_id;
-
+        //ürün bilgileri sınıfı
 
     }
 }

@@ -16,7 +16,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
 
         public void OnGet()
         {
-            string id = Request.Query["id"];
+            string id = Request.Query["id"]; //user id'ye göre şekillenen sayfalar olduğu için id'yi buradan alıyoruz
             if (string.IsNullOrEmpty(id))
             {
                 errorMessage = "Invalid category ID.";
@@ -75,6 +75,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
 
         public void OnPost()
         {
+            //formdan bilgileri alıp, kategoriyi güncelle
             categoryInfo.category_id = Request.Form["id"];
             categoryInfo.category_name = Request.Form["name"];
             categoryInfo.creator_id = Request.Form["seller_id"];
@@ -111,8 +112,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Categories
                 return;
             }
 
-            succesMessage = "Category updated successfully! Redirecting...";
-            Thread.Sleep(2000);
+
             Response.Redirect("/AdminPage/Categories/Index");
         }
     }

@@ -17,6 +17,7 @@ namespace CicekSepetiCloneDotNet.Pages.Login
 
         public void OnPost()
         {
+            // burada yeni şifremizi giriyoruz. eğer şifreler uyuşmuyorsa hata mesajı veriyoruz.
             string id = Request.Query["id"];
             string password1 = Request.Form["password1"];
             string password2 = Request.Form["password2"];
