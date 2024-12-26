@@ -88,7 +88,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
                     }
                     //Get Sellers
 
-                    string sql2 = "SELECT user_id, user_name, user_surname FROM TBL_USERS where user_category='seller' ";
+                    string sql2 = "SELECT * FROM dbo.GetSellers()";
                     using (SqlCommand command2 = new SqlCommand(sql2, connection))
                     {
                         using (SqlDataReader reader2 = command2.ExecuteReader())
@@ -97,6 +97,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
                             {
                                 Users.Add(new UsersInfo
                                 {
+
                                     user_id = reader2["user_id"].ToString(),
                                     user_name = reader2["user_name"].ToString(),
                                     user_surname = reader2["user_surname"].ToString()

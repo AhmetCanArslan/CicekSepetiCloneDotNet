@@ -17,6 +17,7 @@ namespace CicekSepetiCloneDotNet.Pages.Products
         public string? product_id;
         public string? messageStatus;
         public string? message="";
+        public string? soldQuantity = "0";
         public void OnGet()
         {
             product_id = Request.Query["id"];
@@ -55,6 +56,21 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                         }
                     }
 
+                    sql = "SELECT dbo.GetProductSales(@product_id) as totalSales";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+
+                        command.Parameters.AddWithValue("@product_id", product_id);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                soldQuantity = "" + reader.GetInt32(0);
+                                
+                            }
+
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -113,6 +129,8 @@ namespace CicekSepetiCloneDotNet.Pages.Products
                     message = "Sepetinizde bu ürün bulunuyor";
                     break;
             }
+
+
         }
     }
 }

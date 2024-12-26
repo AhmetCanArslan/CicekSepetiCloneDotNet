@@ -42,8 +42,6 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
             UsersInfo buyerInfo = getBuyerInfo(buyer_id);
 
 
-            createMessage(buyerInfo, productIds);
-
             deactiveCartItems(cartItems2);
 
             Response.Redirect("/Cart/Successful");
@@ -160,58 +158,6 @@ namespace CicekSepetiCloneDotNet.Pages.Cart
         }
       
 
-        public void createMessage(UsersInfo buyerInfo, List<string> productIds)
-        {
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-
-                    
-                    string seller_id = string.Empty;
-
-                    foreach (var item in productIds)
-                    {
-                        string sql = "Select * from TBL_products where product_id ="+item;
-                        using (SqlCommand command = new SqlCommand(sql, connection))
-                        {
-                            using (SqlDataReader reader = command.ExecuteReader())
-                            {
-                                if (reader.Read())
-                                {
-                                    seller_id = reader["product_seller_id"].ToString();
-                                }
-                            }
-
-                        }
-
-                        sql = "INSERT INTO TBL_Messages " +
-                        "(Title,isRead,SellerId,ProductId) VALUES " +
-                        "(@Title, 0, @SellerId,@ProductId);";
-                        using (SqlCommand command = new SqlCommand(sql, connection))
-                        {
-                            command.Parameters.AddWithValue("@Title", buyerInfo.user_name + " Adlı Kişiden Yeni Siparişiniz var.");
-                            command.Parameters.AddWithValue("@ProductId", item);
-                            command.Parameters.AddWithValue("@SellerId", seller_id);
-
-
-                            command.ExecuteNonQuery();
-                        }
-
-                    }
-
-                    
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
-        }
 
         private List<CartItemViewModel> GetCartItemsFromDatabase(string user_id)
         {

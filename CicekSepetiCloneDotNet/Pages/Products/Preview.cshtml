@@ -38,6 +38,7 @@
         <p class="description">@Model.productInfo.product_description</p>
         <p class="stock">Stoktaki Adet: @Model.productInfo.product_quantity</p>
         <p class="stock">Satıcı: @Model.productInfo.product_seller_name</p>
+        <p class="stock">Satılan Adet: @Model.soldQuantity</p>
         <a class="add-to-cart" href="/Products/AddToCart?product_id=@Model.product_id&user_id=@Model.user_id">Sepete Ekle</a>
     </div>
 </main>

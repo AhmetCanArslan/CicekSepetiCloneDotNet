@@ -19,9 +19,7 @@ namespace CicekSepetiCloneDotNet.Pages.AdminPage.Products
                 {
                     connection.Open();
 
-
-                    string sql = "GetProductsWithSellerAndCategory";
-
+                    string sql = "SELECT * FROM dbo.vw_ProductsWithSellerAndCategory";
 
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
